@@ -9,6 +9,21 @@ function uid(){return "q"+Date.now().toString(36)+Math.floor(Math.random()*999)}
 function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function $(id){return document.getElementById(id)}
 function fmtDT(s){if(!s)return"—";var d=new Date(s);return d.toLocaleDateString("id-ID",{day:"numeric",month:"short"})+" · "+d.toLocaleTimeString("id-ID",{hour:"2-digit",minute:"2-digit"})}
+function fmtN(n){n=+n||0;return n>=1e6?(n/1e6).toFixed(1)+"Jt":n>=1000?(n/1000).toFixed(1)+"K":String(n)}
+/* LIVE = data asli dari YouTube (live.json, ditulis backend tiap sinkron) */
+var LIVE=null;
+function loadLive(){
+  fetch("live.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():null}).then(function(d){
+    if(!d||!d.channel)return;
+    LIVE=d;
+    $("yt-status").innerHTML="Status: <b style='color:#4caf50'>● terhubung</b> — "+esc(d.channel.title)+
+      " ("+d.channel.subs+" subs) · sinkron "+esc(d.synced_at||"");
+    $("btn-yt-connect").textContent="🔄 Hubungkan ulang";
+    renderDash();
+    if(!$("view-analytics").hidden)renderAnalytics();
+    if(!$("view-comments").hidden)renderComments();
+  }).catch(function(){});
+}
 
 if(!localStorage.getItem(LS+"_seed")){
   var t=new Date();t.setDate(t.getDate()+1);t.setHours(19,0,0,0);
@@ -70,12 +85,19 @@ function spark(id,pts,color){
 function renderDash(){
   var pub=state.queue.filter(function(x){return x.status==="published"});
   var tv=0,tl=0;pub.forEach(function(v){var s=statsFor(v);tv+=s.views;tl+=s.likes});
-  $("k-views").textContent=tv>=1000?(tv/1000).toFixed(1)+"K":tv;
-  $("k-likes").textContent=tl>=1000?(tl/1000).toFixed(1)+"K":tl;
-  $("k-subs").textContent=pub.length?("+"+(12+pub.length*7)):"+0";
-  $("k-views-d").textContent="+14.3% dari 28 hari lalu";
-  $("k-likes-d").textContent="+6.8% dari 28 hari lalu";
-  $("k-subs-d").textContent="+9.1% dari 28 hari lalu";
+  var subs=pub.length?("+ "+(12+pub.length*7)):"+0";
+  var vd="+14.3% dari 28 hari lalu",ld="+6.8% dari 28 hari lalu",sd="+9.1% dari 28 hari lalu";
+  if(LIVE){
+    tv=LIVE.channel.views;subs=String(LIVE.channel.subs);
+    tl=0;LIVE.videos.forEach(function(v){tl+=v.likes});
+    vd="total semua video";ld="total semua video";sd="subscriber channel";
+  }
+  $("k-views").textContent=fmtN(tv);
+  $("k-likes").textContent=fmtN(tl);
+  $("k-subs").textContent=subs;
+  $("k-views-d").textContent=vd;
+  $("k-likes-d").textContent=ld;
+  $("k-subs-d").textContent=sd;
   /* sparkline agregat */
   var agg=Array(14).fill(0),aggl=Array(14).fill(0);
   pub.forEach(function(v){var s=statsFor(v);s.series.forEach(function(p,i){agg[i]+=p});s.likesSeries.forEach(function(p,i){aggl[i]+=p})});
@@ -83,6 +105,15 @@ function renderDash(){
   spark("sp-views",agg,"#8b7cf6");spark("sp-likes",aggl,"#3ea6ff");spark("sp-subs",agg.map(function(a){return a/40}),"#f5b301");
   /* latest */
   var box=$("latest-list");box.innerHTML="";
+  if(LIVE&&LIVE.videos.length){
+    LIVE.videos.slice(0,4).forEach(function(v){
+      var r=document.createElement("div");r.className="latest-row";
+      r.innerHTML='<div class="thumb hewan">🎬<span class="dur">:--</span></div>'+
+        '<div class="lr-body"><div class="lr-title">'+esc(v.title)+'</div>'+
+        '<div class="lr-meta">👁 '+fmtN(v.views)+' · 👍 '+fmtN(v.likes)+' · 💬 '+v.comments+' · '+esc(v.published)+'</div></div>';
+      box.appendChild(r);
+    });
+  }else{
   var items=state.queue.slice().sort(function(a,b){return (b.created_at||"")<(a.created_at||"")?-1:1}).slice(0,4);
   if(!items.length)box.innerHTML='<p class="dim">Belum ada konten.</p>';
   items.forEach(function(it){
@@ -92,6 +123,7 @@ function renderDash(){
       '<div class="lr-meta">'+themeIco[it.theme]+" "+it.theme+" · "+fmtDT(it.scheduled_at)+'<span class="stbadge '+it.status+'">'+stName[it.status]+"</span></div></div>";
     box.appendChild(r);
   });
+  }
   renderMiniCal();drawMainChart();drawBars();
 }
 function renderMiniCal(){
@@ -241,9 +273,13 @@ document.querySelectorAll("#ana-tabs .ftab").forEach(function(b){
 function renderAnalytics(){
   var pub=state.queue.filter(function(x){return x.status==="published"});
   var tv=0,tl=0,tc=0;pub.forEach(function(v){var s=statsFor(v);tv+=s.views;tl+=s.likes;tc+=s.comments});
+  var subs=pub.length?("+"+(12+pub.length*7)):"+0";
+  var vids=null;
+  if(LIVE){tv=LIVE.channel.views;subs=String(LIVE.channel.subs);vids=LIVE.videos;
+    tl=0;tc=0;vids.forEach(function(v){tl+=v.likes;tc+=v.comments});}
   $("a-views").textContent=tv.toLocaleString("id-ID");
   $("a-likes").textContent=tl.toLocaleString("id-ID");
-  $("a-subs").textContent=pub.length?("+"+(12+pub.length*7)):"+0";
+  $("a-subs").textContent=subs;
   /* jangkauan */
   var imp=Math.floor(tv*8.4);
   $("j-imp").textContent=imp.toLocaleString("id-ID");
@@ -260,7 +296,9 @@ function renderAnalytics(){
   $("i-likes").textContent=tl.toLocaleString("id-ID");
   $("i-comments").textContent=tc.toLocaleString("id-ID");
   $("i-shares").textContent=Math.floor(tl*0.08).toLocaleString("id-ID");
-  var top=pub.map(function(v){var s=statsFor(v);return{v:v,s:s}}).sort(function(a,b){return b.s.likes-a.s.likes}).slice(0,5);
+  var top=vids
+    ? vids.slice().sort(function(a,b){return b.likes-a.likes}).slice(0,5).map(function(v){return{v:v,s:{likes:v.likes,comments:v.comments}}})
+    : pub.map(function(v){var s=statsFor(v);return{v:v,s:s}}).sort(function(a,b){return b.s.likes-a.s.likes}).slice(0,5);
   var tt=$("top-tbody");tt.innerHTML="";
   top.forEach(function(r){
     var tr=document.createElement("tr");
@@ -269,8 +307,8 @@ function renderAnalytics(){
   });
   if(!top.length)tt.innerHTML='<tr><td colspan="3" class="dim">Belum ada data</td></tr>';
   /* audiens */
-  var subs=pub.length?(12+pub.length*7):0;
-  $("au-subs").textContent="+"+subs;
+  var auSubs=LIVE?LIVE.channel.subs:(pub.length?(12+pub.length*7):0);
+  $("au-subs").textContent="+"+auSubs;
   $("au-uniq").textContent=Math.floor(tv*0.72).toLocaleString("id-ID");
   $("au-id").textContent="87%";
   drawAnaMain();
@@ -322,16 +360,19 @@ function demoComments(){
 }
 function renderComments(){
   var box=$("comments-list");box.innerHTML="";
-  var all=demoComments().filter(function(c){return cmtFilter==="all"||(cmtFilter==="held"?c.held:!c.held)});
+  var liveCmts=(LIVE&&LIVE.comments&&LIVE.comments.length)?LIVE.comments.map(function(c){
+    return{name:c.name,text:c.text,video:c.video,time:c.time,likes:c.likes,held:false,live:true};
+  }):null;
+  var all=(liveCmts||demoComments()).filter(function(c){return cmtFilter==="all"||(cmtFilter==="held"?c.held:!c.held)});
   if(!all.length){box.innerHTML='<div class="empty"><div class="empty-ico">💬</div><p>Belum ada komentar.</p></div>';return}
   all.forEach(function(c){
     var el=document.createElement("div");el.className="cmt"+(c.held?" held":"");
     el.innerHTML='<div class="cmt-ava">👤</div><div class="cmt-body">'+
-      '<div class="cmt-head"><b>'+esc(c.name)+'</b><span class="cmt-time">'+c.time+'</span>'+(c.held?'<span class="held-tag">● ditahan untuk ditinjau</span>':"")+"</div>"+
+      '<div class="cmt-head"><b>'+esc(c.name)+'</b><span class="cmt-time">'+esc(c.time)+'</span>'+(c.held?'<span class="held-tag">● ditahan untuk ditinjau</span>':"")+"</div>"+
       '<div class="cmt-text">'+esc(c.text)+'</div>'+
-      '<div class="cmt-video">di "'+esc(c.video.slice(0,40))+'..."</div>'+
-      '<div class="cmt-actions"><button>👍 '+c.likes+'</button><button>👎</button><button>↩️ Balas</button>'+
-      (c.held?'<button data-a="ok">✓ Setujui</button>':"")+'<button data-a="del">🗑</button></div></div>';
+      '<div class="cmt-video">di "'+esc(String(c.video).slice(0,40))+'..."</div>'+
+      '<div class="cmt-actions"><button>👍 '+c.likes+'</button>'+(c.live?"":'<button>👎</button><button>↩️ Balas</button>')+
+      (c.held?'<button data-a="ok">✓ Setujui</button>':"")+(c.live?"":'<button data-a="del">🗑</button>')+'</div></div>';
     el.querySelectorAll(".cmt-actions button").forEach(function(btn){
       btn.addEventListener("click",function(){
         if(btn.dataset.a==="del"&&confirm("Hapus komentar ini?"))el.remove();
@@ -373,13 +414,7 @@ $("btn-yt-connect").addEventListener("click",function(){
   window.open(u,"_blank");
 });
 /* status koneksi dari live.json (ditulis backend tiap sinkronisasi) */
-fetch("live.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():null}).then(function(d){
-  if(d&&d.channel){
-    $("yt-status").innerHTML="Status: <b style='color:#4caf50'>● terhubung</b> — "+esc(d.channel.title)+
-      " ("+d.channel.subs+" subs) · sinkron "+esc(d.synced_at||"");
-    $("btn-yt-connect").textContent="🔄 Hubungkan ulang";
-  }
-}).catch(function(){});
+loadLive();
 
 renderDash();
 })();
