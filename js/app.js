@@ -44,6 +44,7 @@ document.querySelectorAll(".nav-item").forEach(function(b){
     if(vw==="content")renderQueue();
     if(vw==="calendar")renderCal();
     if(vw==="analytics")renderAnalytics();
+    if(vw==="comments")renderComments();
   });
 });
 $("btn-menu").addEventListener("click",function(){$("sidebar").classList.toggle("open")});
@@ -138,21 +139,35 @@ function drawBars(){
   });
 }
 
-/* ---------- queue ---------- */
+/* ---------- queue (tabel ala Studio) ---------- */
+var contentFilter="all";
+document.querySelectorAll("#content-filters .ftab").forEach(function(b){
+  b.addEventListener("click",function(){
+    document.querySelectorAll("#content-filters .ftab").forEach(function(x){x.classList.remove("active")});
+    b.classList.add("active");contentFilter=b.dataset.f;renderQueue();
+  });
+});
+var visIco={draft:"🔒",scheduled:"🕐",published:"🌐"};
+var visName={draft:"Pribadi",scheduled:"Terjadwal",published:"Publik"};
 function renderQueue(){
-  var list=$("queue-list");list.innerHTML="";
-  var q=state.queue.slice().sort(function(a,b){return (a.scheduled_at||"9999")<(b.scheduled_at||"9999")?-1:1});
+  var tb=$("content-tbody");tb.innerHTML="";
+  var q=state.queue.filter(function(x){return contentFilter==="all"||x.status===contentFilter})
+    .sort(function(a,b){return (b.created_at||"")<(a.created_at||"")?-1:1});
   $("queue-empty").hidden=q.length>0;
   q.forEach(function(it){
-    var el=document.createElement("div");el.className="qcard";
-    el.innerHTML='<div class="thumb '+it.theme+'" style="width:72px;height:96px">'+themeIco[it.theme]+"</div>"+
-      '<div class="qbody"><div class="qtitle">'+esc(it.title)+"</div>"+
-      '<div class="qmeta"><span class="badge '+it.theme+'">'+themeIco[it.theme]+" "+it.theme+"</span>"+
-      '<span class="badge '+it.status+'">'+stName[it.status]+'</span><span class="qsched">📅 '+fmtDT(it.scheduled_at)+"</span></div>"+
-      (it.hashtags?'<div class="dim" style="margin-top:6px">'+esc(it.hashtags)+"</div>":"")+"</div>"+
-      '<div class="qactions">'+(it.status!=="published"?'<button class="qbtn go" data-a="pub">✓ Terbit</button>':"")+
-      '<button class="qbtn" data-a="edit">✏️</button><button class="qbtn del" data-a="del">🗑</button></div>';
-    el.querySelectorAll(".qbtn").forEach(function(btn){
+    var s=statsFor(it);
+    var tr=document.createElement("tr");
+    tr.innerHTML='<td><input type="checkbox"></td>'+
+      '<td><div class="cvideo"><div class="cthumb '+it.theme+'">'+themeIco[it.theme]+'<span class="dur">00:10</span></div>'+
+      '<div><div class="cv-title">'+esc(it.title)+'</div><div class="cv-sub">'+themeIco[it.theme]+" "+it.theme+"</div></div></div></td>"+
+      '<td><span class="viscell"><span class="lock">'+visIco[it.status]+"</span>"+visName[it.status]+"</span></td>"+
+      '<td><span class="dim">—</span></td>'+
+      '<td>'+fmtDT(it.scheduled_at||it.created_at)+'</td>'+
+      '<td>'+(it.status==="published"?s.views.toLocaleString("id-ID"):"—")+'</td>'+
+      '<td>'+(it.status==="published"?s.comments:"—")+'</td>'+
+      '<td>'+(it.status==="published"?s.likes.toLocaleString("id-ID"):"—")+'</td>'+
+      '<td><span class="rowact"><button data-a="edit" title="Edit">✏️</button><button data-a="pub" title="Tandai terbit">✓</button><button data-a="del" title="Hapus">🗑</button></span></td>';
+    tr.querySelectorAll(".rowact button").forEach(function(btn){
       btn.addEventListener("click",function(){
         var a=btn.dataset.a;
         if(a==="del"&&confirm("Hapus dari antrian?")){state.queue=state.queue.filter(function(x){return x.id!==it.id});save();renderQueue()}
@@ -160,8 +175,10 @@ function renderQueue(){
         else if(a==="edit")openModal(it);
       });
     });
-    list.appendChild(el);
+    tb.appendChild(tr);
   });
+  var ck=$("ck-all");
+  if(ck)ck.onclick=function(){tb.querySelectorAll('input[type=checkbox]').forEach(function(c){c.checked=ck.checked})};
 }
 
 /* ---------- modal ---------- */
@@ -210,16 +227,118 @@ function renderCal(){
 $("cal-prev").addEventListener("click",function(){calCursor.setMonth(calCursor.getMonth()-1);renderCal()});
 $("cal-next").addEventListener("click",function(){calCursor.setMonth(calCursor.getMonth()+1);renderCal()});
 
-/* ---------- analytics ---------- */
+/* ---------- analytics (tab: ringkasan/jangkauan/interaksi/audiens) ---------- */
+document.querySelectorAll("#ana-tabs .ftab").forEach(function(b){
+  b.addEventListener("click",function(){
+    document.querySelectorAll("#ana-tabs .ftab").forEach(function(x){x.classList.remove("active")});
+    b.classList.add("active");
+    document.querySelectorAll(".ana-panel").forEach(function(p){p.hidden=true});
+    var p=$("ana-"+b.dataset.t);p.hidden=false;
+    if(b.dataset.t==="ringkas")drawAnaMain();
+    if(b.dataset.t==="audiens")drawAge();
+  });
+});
 function renderAnalytics(){
   var pub=state.queue.filter(function(x){return x.status==="published"});
   var tv=0,tl=0,tc=0;pub.forEach(function(v){var s=statsFor(v);tv+=s.views;tl+=s.likes;tc+=s.comments});
-  $("a-views").textContent=tv.toLocaleString("id-ID");$("a-likes").textContent=tl.toLocaleString("id-ID");$("a-comments").textContent=tc.toLocaleString("id-ID");
-  var tb=document.querySelector("#stats-table tbody");tb.innerHTML="";
-  state.queue.forEach(function(v){
-    var s=statsFor(v),tr=document.createElement("tr");
-    tr.innerHTML="<td>"+esc(v.title.slice(0,42))+"</td><td>"+s.views.toLocaleString("id-ID")+"</td><td>"+s.likes.toLocaleString("id-ID")+"</td><td>"+s.comments+'</td><td><span class="badge '+v.status+'">'+stName[v.status]+"</span></td>";
+  $("a-views").textContent=tv.toLocaleString("id-ID");
+  $("a-likes").textContent=tl.toLocaleString("id-ID");
+  $("a-subs").textContent=pub.length?("+"+(12+pub.length*7)):"+0";
+  /* jangkauan */
+  var imp=Math.floor(tv*8.4);
+  $("j-imp").textContent=imp.toLocaleString("id-ID");
+  $("j-ctr").textContent=(3.2+pub.length*0.4).toFixed(1)+"%";
+  $("j-src").textContent=Math.floor(tv*0.31).toLocaleString("id-ID");
+  var src=[["Shorts feed",0.58],["Penelusuran",0.21],["Rekomendasi",0.13],["Lainnya",0.08]];
+  var tb=$("traffic-tbody");tb.innerHTML="";
+  src.forEach(function(r){
+    var tr=document.createElement("tr");
+    tr.innerHTML="<td>"+r[0]+"</td><td>"+Math.floor(tv*r[1]).toLocaleString("id-ID")+"</td><td>"+Math.floor(r[1]*100)+"%</td>";
     tb.appendChild(tr);
+  });
+  /* interaksi */
+  $("i-likes").textContent=tl.toLocaleString("id-ID");
+  $("i-comments").textContent=tc.toLocaleString("id-ID");
+  $("i-shares").textContent=Math.floor(tl*0.08).toLocaleString("id-ID");
+  var top=pub.map(function(v){var s=statsFor(v);return{v:v,s:s}}).sort(function(a,b){return b.s.likes-a.s.likes}).slice(0,5);
+  var tt=$("top-tbody");tt.innerHTML="";
+  top.forEach(function(r){
+    var tr=document.createElement("tr");
+    tr.innerHTML="<td>"+esc(r.v.title.slice(0,42))+"</td><td>"+r.s.likes.toLocaleString("id-ID")+"</td><td>"+r.s.comments+"</td>";
+    tt.appendChild(tr);
+  });
+  if(!top.length)tt.innerHTML='<tr><td colspan="3" class="dim">Belum ada data</td></tr>';
+  /* audiens */
+  var subs=pub.length?(12+pub.length*7):0;
+  $("au-subs").textContent="+"+subs;
+  $("au-uniq").textContent=Math.floor(tv*0.72).toLocaleString("id-ID");
+  $("au-id").textContent="87%";
+  drawAnaMain();
+}
+function drawAnaMain(){
+  var cv=$("chart-ana-main");if(!cv||$("ana-ringkas").hidden)return;
+  var ctx=setup(cv,200),W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);
+  var pub=state.queue.filter(function(x){return x.status==="published"});
+  var agg=Array(14).fill(0),aggl=Array(14).fill(0);
+  pub.forEach(function(v){var s=statsFor(v);s.series.forEach(function(p,i){agg[i]+=p});s.likesSeries.forEach(function(p,i){aggl[i]+=p})});
+  if(!pub.length){agg=agg.map(function(_,i){return 20+15*Math.abs(Math.sin(i*1.3))});aggl=aggl.map(function(){return 3})}
+  line(ctx,agg,"#8b7cf6",true,W,H);line(ctx,aggl.map(function(a){return a*20}),"#3ea6ff",false,W,H);
+}
+function drawAge(){
+  var cv=$("chart-age");if(!cv||$("ana-audiens").hidden)return;
+  var ctx=setup(cv,200),W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);
+  var ages=[["13–17",18],["18–24",34],["25–34",26],["35–44",14],["45+",8]];
+  var bw=W/(ages.length*2);
+  ages.forEach(function(a,i){
+    var h=(a[1]/40)*(H-70),x=i*2*bw+bw/2;
+    ctx.fillStyle="#8b7cf6";ctx.beginPath();ctx.roundRect(x,H-50-h,bw,h,8);ctx.fill();
+    ctx.fillStyle="#aaa";ctx.font="20px sans-serif";ctx.fillText(a[1]+"%",x+bw/2-16,H-28);ctx.fillText(a[0],x+bw/2-30,H-6);
+  });
+}
+
+/* ---------- komentar (demo) ---------- */
+var cmtFilter="all";
+var CMT_TEXT=["Merinding liatnya 😱","Ini beneran ketangkep cctv?","Kucingnya lucu banget","Auto replay berkali-kali","Kok bisa masuk ya?","Ngeri tapi penasaran","Besok upload lagi dong","Kualitas cctv-nya dapet banget"];
+document.querySelectorAll("#cmt-filters .ftab").forEach(function(b){
+  b.addEventListener("click",function(){
+    document.querySelectorAll("#cmt-filters .ftab").forEach(function(x){x.classList.remove("active")});
+    b.classList.add("active");cmtFilter=b.dataset.f;renderComments();
+  });
+});
+function demoComments(){
+  var pub=state.queue.filter(function(x){return x.status==="published"});
+  var out=[],names=["Budi S","Siti","Rizky","Dewi","Andi","Maya","Putri","Joko"];
+  pub.forEach(function(v,vi){
+    var s=0;for(var k=0;k<v.id.length;k++)s+=v.id.charCodeAt(k);
+    var n=2+(s%4);
+    for(var i=0;i<n;i++){
+      var held=((s+i*3)%9===0);
+      out.push({id:v.id+i,video:v.title,name:names[(s+i)%names.length],
+        text:CMT_TEXT[(s+i*2)%CMT_TEXT.length],held:held,
+        time:(1+((s+i)%20))+" jam lalu",likes:(s+i*7)%48});
+    }
+  });
+  return out;
+}
+function renderComments(){
+  var box=$("comments-list");box.innerHTML="";
+  var all=demoComments().filter(function(c){return cmtFilter==="all"||(cmtFilter==="held"?c.held:!c.held)});
+  if(!all.length){box.innerHTML='<div class="empty"><div class="empty-ico">💬</div><p>Belum ada komentar.</p></div>';return}
+  all.forEach(function(c){
+    var el=document.createElement("div");el.className="cmt"+(c.held?" held":"");
+    el.innerHTML='<div class="cmt-ava">👤</div><div class="cmt-body">'+
+      '<div class="cmt-head"><b>'+esc(c.name)+'</b><span class="cmt-time">'+c.time+'</span>'+(c.held?'<span class="held-tag">● ditahan untuk ditinjau</span>':"")+"</div>"+
+      '<div class="cmt-text">'+esc(c.text)+'</div>'+
+      '<div class="cmt-video">di "'+esc(c.video.slice(0,40))+'..."</div>'+
+      '<div class="cmt-actions"><button>👍 '+c.likes+'</button><button>👎</button><button>↩️ Balas</button>'+
+      (c.held?'<button data-a="ok">✓ Setujui</button>':"")+'<button data-a="del">🗑</button></div></div>';
+    el.querySelectorAll(".cmt-actions button").forEach(function(btn){
+      btn.addEventListener("click",function(){
+        if(btn.dataset.a==="del"&&confirm("Hapus komentar ini?"))el.remove();
+        else if(btn.dataset.a==="ok"){el.classList.remove("held");var t=el.querySelector(".held-tag");if(t)t.remove();btn.remove()}
+      });
+    });
+    box.appendChild(el);
   });
 }
 

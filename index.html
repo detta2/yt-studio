@@ -32,6 +32,7 @@
     <button class="nav-item" data-view="content"><span class="ni">▦</span>Konten</button>
     <button class="nav-item" data-view="calendar"><span class="ni">📅</span>Kalender</button>
     <button class="nav-item" data-view="analytics"><span class="ni">📊</span>Analitik</button>
+    <button class="nav-item" data-view="comments"><span class="ni">💬</span>Komentar</button>
     <button class="nav-item" data-view="settings"><span class="ni">⚙️</span>Setelan</button>
   </nav>
   <div class="side-foot"><div class="yt-status"><span class="dot off"></span>YouTube: belum terhubung</div></div>
@@ -80,9 +81,20 @@
 
   <!-- ================= KONTEN ================= -->
   <section class="view" id="view-content">
-    <div class="dash-head"><div><h1>Konten</h1><p class="dim">Semua video dalam antrian & terbit</p></div>
+    <div class="dash-head"><div><h1>Konten channel</h1><p class="dim">Kelola semua video</p></div>
     <button class="pill-btn" id="btn-add">⊕ Konten baru</button></div>
-    <div class="queue-list" id="queue-list"></div>
+    <div class="filter-tabs" id="content-filters">
+      <button class="ftab active" data-f="all">Semua</button>
+      <button class="ftab" data-f="published">Dipublikasikan</button>
+      <button class="ftab" data-f="scheduled">Terjadwal</button>
+      <button class="ftab" data-f="draft">Draft</button>
+    </div>
+    <div class="panel" style="padding:0">
+      <div class="table-wrap"><table class="table ctable">
+        <thead><tr><th style="width:36px"><input type="checkbox" id="ck-all"></th><th>Video</th><th>Visibilitas</th><th>Pembatasan</th><th>Tanggal</th><th>Views</th><th>Komentar</th><th>Like</th></tr></thead>
+        <tbody id="content-tbody"></tbody>
+      </table></div>
+    </div>
     <div class="empty" id="queue-empty" hidden><div class="empty-ico">🎬</div><p>Belum ada konten.</p></div>
   </section>
 
@@ -95,17 +107,59 @@
 
   <!-- ================= ANALITIK ================= -->
   <section class="view" id="view-analytics">
-    <div class="dash-head"><div><h1>Analitik</h1><p class="dim">Data contoh — hubungkan YouTube untuk data live (Fase 2)</p></div></div>
-    <div class="kpi3">
-      <div class="kpi-card"><div class="kpi-top"><span>Total views</span></div><div class="kpi-big" id="a-views">0</div></div>
-      <div class="kpi-card"><div class="kpi-top"><span>Total likes</span></div><div class="kpi-big" id="a-likes">0</div></div>
-      <div class="kpi-card"><div class="kpi-top"><span>Komentar</span></div><div class="kpi-big" id="a-comments">0</div></div>
+    <div class="dash-head"><div><h1>Analitik channel</h1><p class="dim">Data contoh — hubungkan YouTube untuk data live (Fase 2)</p></div></div>
+    <div class="filter-tabs" id="ana-tabs">
+      <button class="ftab active" data-t="ringkas">Ringkasan</button>
+      <button class="ftab" data-t="jangkau">Jangkauan</button>
+      <button class="ftab" data-t="interaksi">Interaksi</button>
+      <button class="ftab" data-t="audiens">Audiens</button>
     </div>
-    <div class="panel"><h3>Semua video</h3>
-      <div class="table-wrap"><table class="table" id="stats-table">
-        <thead><tr><th>Video</th><th>Views</th><th>Likes</th><th>Komen</th><th>Status</th></tr></thead><tbody></tbody>
-      </table></div>
+    <div class="ana-panel" id="ana-ringkas">
+      <div class="kpi3">
+        <div class="kpi-card"><div class="kpi-top"><span>Views</span></div><div class="kpi-big" id="a-views">0</div></div>
+        <div class="kpi-card"><div class="kpi-top"><span>Likes</span></div><div class="kpi-big" id="a-likes">0</div></div>
+        <div class="kpi-card"><div class="kpi-top"><span>Subscriber</span></div><div class="kpi-big" id="a-subs">0</div></div>
+      </div>
+      <div class="panel"><h3>Tren 14 hari</h3><canvas id="chart-ana-main" height="200"></canvas>
+        <div class="legend"><span><i class="sw" style="background:#8b7cf6"></i>Views</span><span><i class="sw" style="background:#3ea6ff"></i>Likes ×20</span></div></div>
     </div>
+    <div class="ana-panel" id="ana-jangkau" hidden>
+      <div class="kpi3">
+        <div class="kpi-card"><div class="kpi-top"><span>Tayangan</span></div><div class="kpi-big" id="j-imp">0</div></div>
+        <div class="kpi-card"><div class="kpi-top"><span>Rasio klik tayangan</span></div><div class="kpi-big" id="j-ctr">0%</div></div>
+        <div class="kpi-card"><div class="kpi-top"><span>Views dari penelusuran</span></div><div class="kpi-big" id="j-src">0</div></div>
+      </div>
+      <div class="panel"><h3>Sumber traffic</h3>
+        <div class="table-wrap"><table class="table"><thead><tr><th>Sumber</th><th>Views</th><th>%</th></tr></thead><tbody id="traffic-tbody"></tbody></table></div></div>
+    </div>
+    <div class="ana-panel" id="ana-interaksi" hidden>
+      <div class="kpi3">
+        <div class="kpi-card"><div class="kpi-top"><span>Likes</span></div><div class="kpi-big" id="i-likes">0</div></div>
+        <div class="kpi-card"><div class="kpi-top"><span>Komentar</span></div><div class="kpi-big" id="i-comments">0</div></div>
+        <div class="kpi-card"><div class="kpi-top"><span>Share</span></div><div class="kpi-big" id="i-shares">0</div></div>
+      </div>
+      <div class="panel"><h3>Video teratas (interaksi)</h3>
+        <div class="table-wrap"><table class="table"><thead><tr><th>Video</th><th>Likes</th><th>Komentar</th></tr></thead><tbody id="top-tbody"></tbody></table></div></div>
+    </div>
+    <div class="ana-panel" id="ana-audiens" hidden>
+      <div class="kpi3">
+        <div class="kpi-card"><div class="kpi-top"><span>Subscriber baru</span></div><div class="kpi-big" id="au-subs">0</div></div>
+        <div class="kpi-card"><div class="kpi-top"><span>Penonton unik</span></div><div class="kpi-big" id="au-uniq">0</div></div>
+        <div class="kpi-card"><div class="kpi-top"><span>% dari Indonesia</span></div><div class="kpi-big" id="au-id">0%</div></div>
+      </div>
+      <div class="panel"><h3>Kelompok usia penonton</h3><canvas id="chart-age" height="200"></canvas></div>
+    </div>
+  </section>
+
+  <!-- ================= KOMENTAR ================= -->
+  <section class="view" id="view-comments">
+    <div class="dash-head"><div><h1>Komentar</h1><p class="dim">Data contoh — sinkronisasi live di Fase 2</p></div></div>
+    <div class="filter-tabs" id="cmt-filters">
+      <button class="ftab active" data-f="all">Semua</button>
+      <button class="ftab" data-f="pub">Dipublikasikan</button>
+      <button class="ftab" data-f="held">Ditahan</button>
+    </div>
+    <div id="comments-list"></div>
   </section>
 
   <!-- ================= SETELAN ================= -->
