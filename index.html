@@ -165,8 +165,10 @@
   <!-- ================= SETELAN ================= -->
   <section class="view" id="view-settings">
     <div class="dash-head"><div><h1>Setelan</h1></div></div>
-    <div class="panel"><h3>Koneksi YouTube</h3><p class="dim">Hubungkan channel untuk upload otomatis & statistik live.</p>
-      <button class="btn-primary" disabled>🔌 Hubungkan YouTube <span class="tag">Fase 2</span></button></div>
+    <div class="panel"><h3>Koneksi YouTube</h3>
+      <p class="dim" id="yt-status">Status: belum terhubung</p>
+      <button class="btn-primary" id="btn-yt-connect">🔌 Hubungkan YouTube</button>
+      <p class="dim" style="margin-top:10px;font-size:12px">Setelah klik: login Google di tab baru → setujui → halaman gagal dimuat itu wajar → copy kode <b>code=...</b> dari address bar → kirim ke Dante via chat.</p></div>
     <div class="panel"><h3>Jadwal & tema</h3>
       <label class="field">Jam rilis default <input type="time" id="set-time" value="19:00"></label>
       <label class="check"><input type="checkbox" id="set-auto" checked> Generate otomatis tiap hari</label>

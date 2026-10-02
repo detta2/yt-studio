@@ -360,5 +360,26 @@ $("btn-wipe").addEventListener("click",function(){
   if(confirm("Hapus SEMUA data lokal?")){localStorage.removeItem(LS);localStorage.removeItem(LS+"_seed");location.reload()}
 });
 
+/* ---------- YouTube connect (Fase 2) ---------- */
+var YT_CLIENT_ID="255111005069-d6cd0of1heps3qsjt1ok0ogvongnsr40.apps.googleusercontent.com";
+var YT_REDIRECT="http://127.0.0.1:8080";
+var YT_SCOPES=["https://www.googleapis.com/auth/youtube.upload","https://www.googleapis.com/auth/youtube.readonly","https://www.googleapis.com/auth/youtube.force-ssl"].join(" ");
+$("btn-yt-connect").addEventListener("click",function(){
+  var u="https://accounts.google.com/o/oauth2/v2/auth?"+
+    "client_id="+encodeURIComponent(YT_CLIENT_ID)+
+    "&redirect_uri="+encodeURIComponent(YT_REDIRECT)+
+    "&response_type=code&scope="+encodeURIComponent(YT_SCOPES)+
+    "&access_type=offline&prompt=consent";
+  window.open(u,"_blank");
+});
+/* status koneksi dari live.json (ditulis backend tiap sinkronisasi) */
+fetch("live.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():null}).then(function(d){
+  if(d&&d.channel){
+    $("yt-status").innerHTML="Status: <b style='color:#4caf50'>● terhubung</b> — "+esc(d.channel.title)+
+      " ("+d.channel.subs+" subs) · sinkron "+esc(d.synced_at||"");
+    $("btn-yt-connect").textContent="🔄 Hubungkan ulang";
+  }
+}).catch(function(){});
+
 renderDash();
 })();
