@@ -644,10 +644,12 @@ function renderDante(){
     if(!vs.length){h+='<div class="st-empty">'+sic(IC.film)+'<h3>Belum ada video</h3><p>Video pertama dijadwalkan jam 7 pagi.</p></div>'}
     vs.forEach(function(x,i){
       var tayang=x.status==="tayang";
-      var slot=x.slot==="malam"?"🌙 Malam · 19:00":"☀️ Pagi · 07:00";
+      var isShort=x.slot.indexOf("shorts")===0;
+      var slot=x.slot==="malam"?"🌙 Malam · 19:00":isShort?"⚡ Shorts":"☀️ Pagi · 07:00";
+      var tlbl=x.slot==="malam"?"19:00":isShort?"SHORT":"07:00";
       var badge=tayang?'<span class="st-st done">Tayang</span>':'<span class="st-st">Terjadwal</span>';
       var link=x.youtube_url?'<a class="pill-btn" href="'+esc(x.youtube_url)+'" target="_blank" rel="noopener" style="text-decoration:none">Tonton</a>':"";
-      h+='<div class="st-proj"><div class="st-thumb stg'+((i%5)+1)+'"><span class="st-fmt">'+(x.slot==="malam"?"19:00":"07:00")+'</span></div>'
+      h+='<div class="st-proj"><div class="st-thumb stg'+((i%5)+1)+'"><span class="st-fmt">'+tlbl+'</span></div>'
         +'<div class="st-pb"><h3>'+esc(x.title||"(tanpa judul)")+'</h3><div class="m">'+danteDate(x.date)+' · '+slot+'</div></div>'
         +badge+link+'</div>';
     });
