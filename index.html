@@ -3,116 +3,134 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Content Studio — YouTube Shorts Manager</title>
+<title>Studio — Content Manager</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<aside class="sidebar">
-  <div class="brand"><span class="brand-dot"></span>STUDIO</div>
-  <nav class="nav">
-    <button class="nav-item active" data-tab="queue">📋 Antrian</button>
-    <button class="nav-item" data-tab="calendar">📅 Kalender</button>
-    <button class="nav-item" data-tab="stats">📊 Statistik</button>
-    <button class="nav-item" data-tab="settings">⚙️ Pengaturan</button>
-  </nav>
-  <div class="side-foot">
-    <div class="yt-status" id="yt-status"><span class="dot off"></span>YouTube: belum terhubung</div>
+
+<header class="topbar">
+  <button class="icon-btn" id="btn-menu">☰</button>
+  <div class="studio-logo"><span class="yt-play">▶</span> Studio</div>
+  <div class="search"><span class="search-ico">⌕</span><input type="text" id="search" placeholder="Telusuri konten..."></div>
+  <div class="top-actions">
+    <button class="icon-btn" title="Bantuan">?</button>
+    <button class="icon-btn" title="Notifikasi">🔔</button>
+    <button class="create-btn">⊕ Buat</button>
+    <span class="avatar">🎬</span>
   </div>
+</header>
+
+<div class="shell">
+<aside class="sidebar" id="sidebar">
+  <div class="chan">
+    <div class="chan-ava">🎬</div>
+    <div class="chan-name">Kanal Saya</div>
+    <div class="chan-sub">Shorts CCTV</div>
+  </div>
+  <nav class="nav">
+    <button class="nav-item active" data-view="dash"><span class="ni">☰</span>Dashboard</button>
+    <button class="nav-item" data-view="content"><span class="ni">▦</span>Konten</button>
+    <button class="nav-item" data-view="calendar"><span class="ni">📅</span>Kalender</button>
+    <button class="nav-item" data-view="analytics"><span class="ni">📊</span>Analitik</button>
+    <button class="nav-item" data-view="settings"><span class="ni">⚙️</span>Setelan</button>
+  </nav>
+  <div class="side-foot"><div class="yt-status"><span class="dot off"></span>YouTube: belum terhubung</div></div>
 </aside>
 
 <main class="main">
-  <header class="topbar">
-    <h1 id="page-title">Antrian Konten</h1>
-    <div class="topbar-right">
-      <span class="date" id="today"></span>
-      <button class="btn-primary" id="btn-add">＋ Tambah</button>
+  <!-- ================= DASHBOARD ================= -->
+  <section class="view active" id="view-dash">
+    <div class="dash-head">
+      <div><h1>Dashboard channel</h1><p class="dim" id="dash-range-label"></p></div>
+      <div class="dash-head-right">
+        <button class="pill-btn">📅 28 hari terakhir ▾</button>
+        <button class="pill-btn" id="btn-add2">⊕ Konten baru</button>
+      </div>
     </div>
-  </header>
-
-  <!-- ============ TAB: ANTRIAN ============ -->
-  <section class="tab active" id="tab-queue">
-    <div class="kpi-row">
-      <div class="kpi"><span class="kpi-num" id="kpi-draft">0</span><span class="kpi-label">Draft</span></div>
-      <div class="kpi"><span class="kpi-num" id="kpi-sched">0</span><span class="kpi-label">Terjadwal</span></div>
-      <div class="kpi"><span class="kpi-num" id="kpi-pub">0</span><span class="kpi-label">Terbit</span></div>
+    <div class="kpi3">
+      <div class="kpi-card"><div class="kpi-top"><span>Views</span></div><div class="kpi-big" id="k-views">0</div><div class="kpi-delta up" id="k-views-d">—</div><canvas class="spark" id="sp-views"></canvas></div>
+      <div class="kpi-card"><div class="kpi-top"><span>Likes</span></div><div class="kpi-big" id="k-likes">0</div><div class="kpi-delta up" id="k-likes-d">—</div><canvas class="spark" id="sp-likes"></canvas></div>
+      <div class="kpi-card"><div class="kpi-top"><span>Subscriber</span></div><div class="kpi-big" id="k-subs">0</div><div class="kpi-delta up" id="k-subs-d">—</div><canvas class="spark" id="sp-subs"></canvas></div>
     </div>
-    <div class="queue-list" id="queue-list"></div>
-    <div class="empty" id="queue-empty" hidden>
-      <div class="empty-ico">🎬</div>
-      <p>Antrian kosong. Tambah konten manual atau tunggu generate otomatis tiap pagi.</p>
+    <div class="dash-grid">
+      <div class="panel">
+        <h3>Konten terbaru</h3><p class="dim">Video terakhir di antrian</p>
+        <div id="latest-list"></div>
+        <button class="wide-btn" id="btn-add3">⊕ Tambah konten</button>
+      </div>
+      <div class="dash-side">
+        <div class="panel">
+          <h3>📅 Kalender rilis</h3>
+          <div class="mini-cal-head"><button class="icon-btn" id="mcal-prev">‹</button><span id="mcal-title"></span><button class="icon-btn" id="mcal-next">›</button></div>
+          <div class="mini-cal" id="mini-cal"></div>
+          <div id="mini-legend" class="dim" style="margin-top:8px;font-size:12px"></div>
+        </div>
+        <div class="panel">
+          <h3>Views & likes</h3>
+          <canvas id="chart-main" height="180"></canvas>
+          <div class="legend"><span><i class="sw" style="background:#8b7cf6"></i>Views</span><span><i class="sw" style="background:#3ea6ff"></i>Likes ×20</span></div>
+        </div>
+        <div class="panel">
+          <h3>Performa per konten</h3>
+          <canvas id="chart-bars" height="180"></canvas>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ============ TAB: KALENDER ============ -->
-  <section class="tab" id="tab-calendar">
-    <div class="cal-head">
-      <button class="btn-ghost" id="cal-prev">‹</button>
-      <h2 id="cal-title"></h2>
-      <button class="btn-ghost" id="cal-next">›</button>
-    </div>
+  <!-- ================= KONTEN ================= -->
+  <section class="view" id="view-content">
+    <div class="dash-head"><div><h1>Konten</h1><p class="dim">Semua video dalam antrian & terbit</p></div>
+    <button class="pill-btn" id="btn-add">⊕ Konten baru</button></div>
+    <div class="queue-list" id="queue-list"></div>
+    <div class="empty" id="queue-empty" hidden><div class="empty-ico">🎬</div><p>Belum ada konten.</p></div>
+  </section>
+
+  <!-- ================= KALENDER ================= -->
+  <section class="view" id="view-calendar">
+    <div class="dash-head"><div><h1>Kalender</h1><p class="dim">Jadwal rilis konten</p></div></div>
+    <div class="cal-head"><button class="btn-ghost" id="cal-prev">‹</button><h2 id="cal-title"></h2><button class="btn-ghost" id="cal-next">›</button></div>
     <div class="cal-grid" id="cal-grid"></div>
   </section>
 
-  <!-- ============ TAB: STATISTIK ============ -->
-  <section class="tab" id="tab-stats">
-    <div class="notice">🔌 Hubungkan YouTube untuk data live. <span class="dim">Saat ini data contoh (Fase 2: integrasi API).</span></div>
-    <div class="kpi-row">
-      <div class="kpi"><span class="kpi-num" id="st-views">0</span><span class="kpi-label">Views</span></div>
-      <div class="kpi"><span class="kpi-num" id="st-likes">0</span><span class="kpi-label">Likes</span></div>
-      <div class="kpi"><span class="kpi-num" id="st-comments">0</span><span class="kpi-label">Komentar</span></div>
-      <div class="kpi"><span class="kpi-num" id="st-videos">0</span><span class="kpi-label">Video</span></div>
+  <!-- ================= ANALITIK ================= -->
+  <section class="view" id="view-analytics">
+    <div class="dash-head"><div><h1>Analitik</h1><p class="dim">Data contoh — hubungkan YouTube untuk data live (Fase 2)</p></div></div>
+    <div class="kpi3">
+      <div class="kpi-card"><div class="kpi-top"><span>Total views</span></div><div class="kpi-big" id="a-views">0</div></div>
+      <div class="kpi-card"><div class="kpi-top"><span>Total likes</span></div><div class="kpi-big" id="a-likes">0</div></div>
+      <div class="kpi-card"><div class="kpi-top"><span>Komentar</span></div><div class="kpi-big" id="a-comments">0</div></div>
     </div>
-    <div class="card">
-      <h3>Views per video</h3>
-      <canvas id="chart-views" height="220"></canvas>
-    </div>
-    <div class="card">
-      <h3>Semua video</h3>
+    <div class="panel"><h3>Semua video</h3>
       <div class="table-wrap"><table class="table" id="stats-table">
-        <thead><tr><th>Video</th><th>Views</th><th>Likes</th><th>Komen</th><th>Terbit</th></tr></thead>
-        <tbody></tbody>
+        <thead><tr><th>Video</th><th>Views</th><th>Likes</th><th>Komen</th><th>Status</th></tr></thead><tbody></tbody>
       </table></div>
     </div>
   </section>
 
-  <!-- ============ TAB: PENGATURAN ============ -->
-  <section class="tab" id="tab-settings">
-    <div class="card">
-      <h3>Koneksi YouTube</h3>
-      <p class="dim">Hubungkan channel untuk upload otomatis & statistik live.</p>
-      <button class="btn-primary" disabled title="Fase 2">🔌 Hubungkan YouTube <span class="tag">Fase 2</span></button>
-    </div>
-    <div class="card">
-      <h3>Jadwal Rilis</h3>
+  <!-- ================= SETELAN ================= -->
+  <section class="view" id="view-settings">
+    <div class="dash-head"><div><h1>Setelan</h1></div></div>
+    <div class="panel"><h3>Koneksi YouTube</h3><p class="dim">Hubungkan channel untuk upload otomatis & statistik live.</p>
+      <button class="btn-primary" disabled>🔌 Hubungkan YouTube <span class="tag">Fase 2</span></button></div>
+    <div class="panel"><h3>Jadwal & tema</h3>
       <label class="field">Jam rilis default <input type="time" id="set-time" value="19:00"></label>
-      <label class="field">Generate otomatis tiap hari <input type="checkbox" id="set-auto" checked></label>
-    </div>
-    <div class="card">
-      <h3>Rotasi Tema</h3>
+      <label class="check"><input type="checkbox" id="set-auto" checked> Generate otomatis tiap hari</label>
       <label class="check"><input type="checkbox" id="theme-hewan" checked> 🐾 Hewan</label>
-      <label class="check"><input type="checkbox" id="theme-misteri" checked> 👻 Misteri</label>
-    </div>
-    <div class="card danger">
-      <h3>Zona Bahaya</h3>
-      <button class="btn-danger" id="btn-wipe">Hapus semua data lokal</button>
-    </div>
+      <label class="check"><input type="checkbox" id="theme-misteri" checked> 👻 Misteri</label></div>
+    <div class="panel danger"><h3>Zona bahaya</h3><button class="btn-danger" id="btn-wipe">Hapus semua data lokal</button></div>
   </section>
 </main>
+</div>
 
-<!-- modal tambah/edit -->
 <div class="modal-back" id="modal-back" hidden>
   <div class="modal">
     <h3 id="modal-title">Tambah Konten</h3>
     <label class="field">Judul <input type="text" id="f-title" placeholder="KETANGKEP CCTV! ..."></label>
-    <label class="field">Tema
-      <select id="f-theme"><option value="hewan">🐾 Hewan</option><option value="misteri">👻 Misteri</option></select>
-    </label>
+    <label class="field">Tema <select id="f-theme"><option value="hewan">🐾 Hewan</option><option value="misteri">👻 Misteri</option></select></label>
     <label class="field">Hashtag <input type="text" id="f-tags" placeholder="#shorts #cctv ..."></label>
     <label class="field">Jadwal rilis <input type="datetime-local" id="f-sched"></label>
-    <div class="modal-actions">
-      <button class="btn-ghost" id="modal-cancel">Batal</button>
-      <button class="btn-primary" id="modal-save">Simpan</button>
-    </div>
+    <div class="modal-actions"><button class="btn-ghost" id="modal-cancel">Batal</button><button class="btn-primary" id="modal-save">Simpan</button></div>
   </div>
 </div>
 
