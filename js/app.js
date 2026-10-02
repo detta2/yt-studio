@@ -60,6 +60,7 @@ document.querySelectorAll(".nav-item").forEach(function(b){
     if(vw==="calendar")renderCal();
     if(vw==="analytics")renderAnalytics();
     if(vw==="comments")renderComments();
+    if(vw==="story"){stoRoute={name:"home"};renderStory()}
   });
 });
 $("btn-menu").addEventListener("click",function(){$("sidebar").classList.toggle("open")});
@@ -439,6 +440,190 @@ renderNext();
 
 /* status koneksi dari live.json (ditulis backend tiap sinkronisasi) */
 loadLive();
+
+/* ================= CERITA (Video AI) — modul terpisah, data & pipeline sendiri ================= */
+var STO_LS="bsw_projects_v1";
+function stoLoad(){try{return JSON.parse(localStorage.getItem(STO_LS))||[]}catch(e){return[]}}
+function stoSave(p){try{localStorage.setItem(STO_LS,JSON.stringify(p))}catch(e){}}
+var stoRoute={name:"home"};
+var stoDraft=null;
+function sic(p){return '<svg class="st-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>'}
+var IC={
+book:'<path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/>',
+spark:'<path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3Z"/>',
+film:'<rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18"/><path d="M3 7.5h4"/><path d="M3 12h18"/><path d="M3 16.5h4"/><path d="M17 3v18"/><path d="M17 7.5h4"/><path d="M17 16.5h4"/>',
+clock:'<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+plus:'<path d="M5 12h14"/><path d="M12 5v14"/>',
+back:'<path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>',
+copy:'<rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>',
+mic:'<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/>',
+trash:'<path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>'};
+function stoToast(m){var e=$("st-toast");if(!e){e=document.createElement("div");e.id="st-toast";e.className="st-toast";document.body.appendChild(e)}e.textContent=m;e.classList.add("show");clearTimeout(e._t);e._t=setTimeout(function(){e.classList.remove("show")},2600)}
+function stoDoneCount(p){var d=0;p.scenes.forEach(function(s){if(s.st&&s.st.img==="done"&&s.st.anim==="done"&&s.st.nar==="done")d++});return d}
+function stoMins(n){return Math.round(n/6*10)/10}
+function renderStory(){
+  var v=$("view-story");if(!v)return;
+  if(stoRoute.name==="detail")return stoDetail(v,stoRoute.id);
+  if(stoRoute.name==="wizard")return stoWizard(v);
+  return stoHome(v);
+}
+function stStat(icn,label,val){
+  return '<div class="st-stat"><div class="st-sic">'+sic(icn)+'</div><div><small>'+label+'</small><b>'+val+'</b></div></div>';
+}
+function stoHome(v){
+  var ps=stoLoad().slice().sort(function(a,b){return(b.updatedAt||"")<(a.updatedAt||"")?-1:1});
+  var done=0,scenes=0;
+  ps.forEach(function(p){scenes+=p.scenes.length;done+=stoDoneCount(p)});
+  var h='<div class="st-head"><div><h1>'+sic(IC.book)+' Cerita — Video AI</h1><p>Ubah ide cerita jadi video panjang. Modul terpisah — pipeline CCTV tidak terganggu.</p></div>'
+    +'<button class="btn-red" data-st="new">'+sic(IC.plus)+' Proyek Baru</button></div>';
+  h+='<div class="st-stats">'+stStat(IC.spark,"Total proyek cerita",ps.length)+stStat(IC.film,"Adegan selesai",done)+stStat(IC.clock,"Menit video jadi",stoMins(scenes))+'</div>';
+  h+='<div class="panel"><h3 style="font-size:16px;margin-bottom:14px">Proyek Terbaru</h3>';
+  if(!ps.length){
+    h+='<div class="st-empty">'+sic(IC.book)+'<h3>Belum ada proyek cerita</h3><p>Tulis ide ceritamu, atur adegan per adegan, kirim ke Dante — jadi video.</p><button class="btn-red" data-st="new">'+sic(IC.plus)+' Buat Proyek Pertama</button></div>';
+  }else{
+    ps.forEach(function(p,i){
+      var t=p.scenes.length,d=stoDoneCount(p),pct=t?Math.round(d/t*100):0;
+      var cls=pct===100?"done":(pct===0?"draft":""),lbl=pct===100?"Selesai":(pct===0?"Draf":"Diproses");
+      h+='<div class="st-proj" data-st="open" data-id="'+p.id+'"><div class="st-thumb stg'+((i%5)+1)+'"><span class="st-fmt">'+esc(p.format)+'</span></div>'
+        +'<div class="st-pb"><h3>'+esc(p.title||"(tanpa judul)")+'</h3><div class="m">'+sic(IC.clock)+' '+t+' adegan • ±'+stoMins(t)+' menit • '+esc(p.style)+'</div>'
+        +'<div class="st-bar"><i class="'+(pct===100?"done":"")+'" style="width:'+pct+'%"></i></div></div>'
+        +'<span class="st-st '+cls+'">'+pct+'% • '+lbl+'</span></div>';
+    });
+  }
+  h+='</div><div class="st-tips" style="text-align:center">Data proyek tersimpan di browser ini. "Salin &amp; kirim ke Dante" di dalam proyek untuk mulai generasi.</div>';
+  v.innerHTML=h;
+  v.querySelectorAll('[data-st="new"]').forEach(function(b){b.addEventListener("click",function(){stoDraft={id:null,step:1,title:"",idea:"",format:"9:16",style:"Storybook",minutes:3,narrator:"ID · Pria",scenes:[]};stoRoute={name:"wizard"};renderStory()})});
+  v.querySelectorAll('[data-st="open"]').forEach(function(b){b.addEventListener("click",function(){stoRoute={name:"detail",id:b.dataset.id};renderStory()})});
+}
+function stBadge(pid,i,k,label){
+  var ps=stoLoad(),p=null;ps.forEach(function(x){if(x.id===pid)p=x});
+  var s=p?p.scenes[i]:null,v=(s&&s.st&&s.st[k])||"todo";
+  var icn=v==="done"?"✓ ":v==="run"?"◌ ":"○ ";
+  return '<button class="st-badge '+v+'" data-pid="'+pid+'" data-i="'+i+'" data-k="'+k+'">'+icn+esc(label)+'</button>';
+}
+function stoDetail(v,id){
+  var ps=stoLoad(),p=null;ps.forEach(function(x){if(x.id===id)p=x});
+  if(!p){stoRoute={name:"home"};return stoHome(v)}
+  var t=p.scenes.length,d=stoDoneCount(p),pct=t?Math.round(d/t*100):0;
+  var h='<button class="st-back" id="st-back">'+sic(IC.back)+' Kembali ke daftar</button>';
+  h+='<div class="st-head"><div><h1>'+esc(p.title||"(tanpa judul)")+'</h1>'
+    +'<div class="st-chips"><span class="st-chip">'+esc(p.format)+'</span><span class="st-chip">'+esc(p.style)+'</span><span class="st-chip">'+esc(p.narrator)+'</span><span class="st-chip">'+t+' adegan</span><span class="st-chip">±'+stoMins(t)+' menit</span></div></div></div>';
+  if(p.idea)h+='<p style="color:var(--text2);font-size:13.5px;margin:-6px 0 16px;max-width:720px">'+esc(p.idea)+'</p>';
+  h+='<div class="st-prog"><div class="lbl"><span>Progres generasi</span><b>'+pct+'% • '+d+' dari '+t+' adegan selesai</b></div><div class="st-bar"><i class="'+(pct===100?"done":"")+'" style="width:'+pct+'%"></i></div></div>';
+  h+='<div class="panel"><h3 style="font-size:16px;margin-bottom:14px">Daftar Adegan</h3>';
+  p.scenes.forEach(function(s,i){
+    h+='<div class="st-scene"><div class="st-sth stg'+((i%5)+1)+'"></div><div class="st-sb"><div class="n">ADEGAN '+(i+1)+'</div><h3>'+esc(s.title||("Adegan "+(i+1)))+'</h3><p>'+esc(s.narration||"—")+'</p></div>'
+      +'<div class="st-badges">'+stBadge(p.id,i,"img","Gambar")+stBadge(p.id,i,"anim","Animasi")+stBadge(p.id,i,"nar","Narasi")+'</div></div>';
+  });
+  h+='</div><div class="st-actions"><button class="btn-red" id="st-copy">'+sic(IC.copy)+' Salin &amp; kirim ke Dante</button>'
+    +'<button class="pill-btn" id="st-edit">Edit proyek</button><button class="pill-btn" id="st-del" style="color:#ff8080">Hapus</button></div>'
+    +'<div class="st-tips">Klik badge status untuk mengubah: menunggu → diproses → selesai. Tombol "Salin &amp; kirim ke Dante", lalu paste di chat.</div>';
+  v.innerHTML=h;
+  $("st-back").addEventListener("click",function(){stoRoute={name:"home"};renderStory()});
+  v.querySelectorAll(".st-badge").forEach(function(b){
+    b.addEventListener("click",function(ev){
+      ev.stopPropagation();
+      var ps2=stoLoad(),ord=["todo","run","done"],p2=null;
+      ps2.forEach(function(x){if(x.id===b.dataset.pid)p2=x});
+      var s=p2.scenes[+b.dataset.i],k=b.dataset.k,cur=(s.st&&s.st[k])||"todo";
+      s.st=s.st||{img:"todo",anim:"todo",nar:"todo"};
+      s.st[k]=ord[(ord.indexOf(cur)+1)%3];
+      p2.updatedAt=new Date().toISOString();stoSave(ps2);stoDetail(v,p2.id);
+    });
+  });
+  $("st-copy").addEventListener("click",function(){
+    var payload={app:"bang-story-web",project:p.title,idea:p.idea,format:p.format,style:p.style,narrator:p.narrator,
+      scenes:p.scenes.map(function(s,i){return{n:i+1,title:s.title,narration:s.narration,img:s.img||""}})};
+    var t=JSON.stringify(payload);
+    if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(function(){stoToast("Tersalin! Paste di chat ke Dante")},function(){prompt("Copy manual:",t)});
+    else prompt("Copy manual:",t);
+  });
+  $("st-edit").addEventListener("click",function(){
+    stoDraft={id:p.id,step:1,title:p.title,idea:p.idea,format:p.format,style:p.style,minutes:Math.max(1,Math.round(p.scenes.length/6)),narrator:p.narrator,scenes:p.scenes.map(function(s){return{title:s.title,narration:s.narration,img:s.img||"",st:s.st||{img:"todo",anim:"todo",nar:"todo"}}})};
+    stoRoute={name:"wizard"};renderStory();
+  });
+  $("st-del").addEventListener("click",function(){
+    if(!confirm("Hapus proyek \""+(p.title||"")+"\"?"))return;
+    stoSave(stoLoad().filter(function(x){return x.id!==p.id}));
+    stoRoute={name:"home"};renderStory();stoToast("Proyek dihapus");
+  });
+}
+var STO_STYLES=["Realistis","Kartun","Storybook","Anime","Sinematik"];
+var STO_NARR=["ID · Pria","ID · Wanita","EN · Male","EN · Female"];
+function stoSyncScenes(d){
+  var n=Math.max(1,d.minutes*6),arr=[];
+  for(var i=0;i<n;i++)arr.push(d.scenes[i]||{title:"",narration:"",img:"",st:{img:"todo",anim:"todo",nar:"todo"}});
+  d.scenes=arr;
+}
+function stoWizard(v){
+  var d=stoDraft;
+  if(d.step===1)return wizStep1(v,d);
+  if(d.step===2)return wizStep2(v,d);
+  return wizStep3(v,d);
+}
+function wizHead(step){
+  function s(n,t){return '<div class="st-ws'+(step===n?" on":"")+'"><span class="wn">'+n+'</span>'+t+'</div>'}
+  return '<div class="st-wsteps">'+s(1,"Ide Cerita")+'<div class="st-wline"></div>'+s(2,"Adegan")+'<div class="st-wline"></div>'+s(3,"Selesai")+'</div>';
+}
+function wizStep1(v,d){
+  var h=wizHead(1);
+  h+='<div class="st-card"><h2>'+sic(IC.spark)+' Langkah 1: Ide Cerita</h2><p class="desc">Mulai dengan mendeskripsikan cerita yang ingin kamu buat menjadi video AI</p>';
+  h+='<label class="st-flabel">Judul cerita</label><input class="st-input" id="w-title" value="'+esc(d.title)+'" placeholder="Masukkan judul cerita…">';
+  h+='<label class="st-flabel">Ide / sinopsis</label><textarea class="st-area" id="w-idea" placeholder="Jelaskan ide cerita kamu secara detail…">'+esc(d.idea)+'</textarea>';
+  h+='<div class="st-hint">Contoh: Seorang petualang muda menemukan peta harta kuno di hutan Jawa dan harus memecahkan teka-teki untuk menyelamatkan desanya.</div>';
+  h+='<label class="st-flabel">Format video</label><div class="st-fmtrow">'
+    +'<div class="st-fcard'+(d.format==="9:16"?" on":"")+'" data-fmt="9:16"><span class="st-radio">'+(d.format==="9:16"?"✓":"")+'</span><div><b>9:16</b><small>Vertikal — Shorts / Reels</small></div></div>'
+    +'<div class="st-fcard'+(d.format==="16:9"?" on":"")+'" data-fmt="16:9"><span class="st-radio">'+(d.format==="16:9"?"✓":"")+'</span><div><b>16:9</b><small>Horizontal — YouTube</small></div></div></div>';
+  h+='<label class="st-flabel">Gaya visual</label><div class="st-chipsel">'+STO_STYLES.map(function(s){return '<button class="st-opt'+(d.style===s?" on":"")+'" data-style="'+s+'">'+s+'</button>'}).join("")+'</div>';
+  h+='<label class="st-flabel">Target durasi</label><div class="st-sliderow"><input type="range" id="w-min" min="1" max="10" value="'+d.minutes+'"><div class="st-slval"><b>'+d.minutes+'</b> menit ≈ <b>'+(d.minutes*6)+'</b> adegan</div></div><div class="st-hint">1 adegan = 1 gambar → 1 klip ±10 detik + narasi.</div>';
+  h+='<label class="st-flabel">Suara narator</label><select class="st-select" id="w-narr">'+STO_NARR.map(function(n){return '<option'+(d.narrator===n?" selected":"")+'>'+n+'</option>'}).join("")+'</select>';
+  h+='<div class="st-wnav"><button class="pill-btn" id="w-cancel">Batal</button><button class="btn-red" id="w-next1">Lanjut ke Adegan →</button></div></div>';
+  v.innerHTML=h;
+  v.querySelectorAll("[data-fmt]").forEach(function(b){b.addEventListener("click",function(){d.format=b.dataset.fmt;wizStep1(v,d)})});
+  v.querySelectorAll("[data-style]").forEach(function(b){b.addEventListener("click",function(){d.style=b.dataset.style;wizStep1(v,d)})});
+  $("w-min").addEventListener("input",function(){d.minutes=+$("w-min").value;v.querySelector(".st-slval").innerHTML="<b>"+d.minutes+"</b> menit ≈ <b>"+(d.minutes*6)+"</b> adegan"});
+  $("w-cancel").addEventListener("click",function(){stoRoute={name:"home"};renderStory()});
+  $("w-next1").addEventListener("click",function(){
+    d.title=$("w-title").value.trim();d.idea=$("w-idea").value.trim();d.narrator=$("w-narr").value;
+    if(!d.title){alert("Isi dulu judul ceritanya");return}
+    stoSyncScenes(d);d.step=2;renderStory();
+  });
+}
+function wizStep2(v,d){
+  var h=wizHead(2);
+  h+='<div class="st-card" style="max-width:860px"><h2>'+sic(IC.film)+' Langkah 2: Adegan <span style="color:var(--text2);font-size:13px;font-weight:400">('+d.scenes.length+' adegan · ±'+stoMins(d.scenes.length)+' menit)</span></h2><p class="desc">Isi narasi tiap adegan. Prompt gambar boleh dikosongkan — Dante yang bikinkan.</p>';
+  d.scenes.forEach(function(s,i){
+    h+='<div class="st-scene-edit"><div class="sh"><b>Adegan '+(i+1)+'</b><button class="st-x" data-rm="'+i+'">✕</button></div>'
+      +'<label class="st-flabel" style="margin-top:0">Judul adegan</label><input class="st-input" data-s="title" data-i="'+i+'" value="'+esc(s.title)+'" placeholder="misal: Tepi Hutan Gelap">'
+      +'<label class="st-flabel">Narasi (±10 detik dibaca)</label><textarea class="st-area" data-s="narration" data-i="'+i+'" placeholder="Tulis narasi yang dibacakan…">'+esc(s.narration)+'</textarea>'
+      +'<label class="st-flabel">Prompt gambar (opsional)</label><input class="st-input" data-s="img" data-i="'+i+'" value="'+esc(s.img)+'" placeholder="Kosongkan = Dante yang bikinkan"></div>';
+  });
+  h+='<button class="pill-btn" id="w-addsc" style="margin-bottom:6px">+ Tambah adegan</button>';
+  h+='<div class="st-wnav"><button class="pill-btn" id="w-back1">← Kembali</button><button class="btn-red" id="w-next2">Lanjut →</button></div></div>';
+  v.innerHTML=h;
+  function collect(){v.querySelectorAll("[data-s]").forEach(function(el){var s=d.scenes[+el.dataset.i];if(s)s[el.dataset.s]=el.value})}
+  v.querySelectorAll("[data-rm]").forEach(function(b){b.addEventListener("click",function(){collect();d.scenes.splice(+b.dataset.rm,1);renderStory()})});
+  $("w-addsc").addEventListener("click",function(){collect();d.scenes.push({title:"",narration:"",img:"",st:{img:"todo",anim:"todo",nar:"todo"}});renderStory()});
+  $("w-back1").addEventListener("click",function(){collect();d.step=1;renderStory()});
+  $("w-next2").addEventListener("click",function(){collect();d.step=3;renderStory()});
+}
+function wizStep3(v,d){
+  var h=wizHead(3);
+  h+='<div class="st-card"><h2>'+sic('<polyline points="20 6 9 17 4 12"/>')+' Langkah 3: Siap!</h2><p class="desc">Periksa ringkasan proyek sebelum disimpan.</p>';
+  h+='<div class="st-chips"><span class="st-chip">'+esc(d.format)+'</span><span class="st-chip">'+esc(d.style)+'</span><span class="st-chip">'+esc(d.narrator)+'</span><span class="st-chip">'+d.scenes.length+' adegan</span><span class="st-chip">±'+stoMins(d.scenes.length)+' menit</span></div>';
+  h+='<p style="font-size:14px;margin-bottom:6px"><b>'+esc(d.title)+'</b></p><p style="color:var(--text2);font-size:13px;margin-bottom:14px">'+esc(d.idea||"—")+'</p>';
+  h+='<div class="st-tips">Setelah disimpan, buka proyek → "Salin &amp; kirim ke Dante", paste di chat, dan Dante mulai generate per adegan.</div>';
+  h+='<div class="st-wnav"><button class="pill-btn" id="w-back2">← Kembali</button><button class="btn-red" id="w-save">Simpan Proyek</button></div></div>';
+  v.innerHTML=h;
+  $("w-back2").addEventListener("click",function(){d.step=2;renderStory()});
+  $("w-save").addEventListener("click",function(){
+    var ps=stoLoad(),now=new Date().toISOString();
+    var rec={id:d.id||uid(),title:d.title,idea:d.idea,format:d.format,style:d.style,narrator:d.narrator,scenes:d.scenes,updatedAt:now,createdAt:now};
+    if(d.id){var found=false;ps=ps.map(function(x){if(x.id===d.id){found=true;rec.createdAt=x.createdAt;return rec}return x});if(!found)ps.push(rec)}
+    else ps.push(rec);
+    stoSave(ps);stoDraft=null;stoRoute={name:"detail",id:rec.id};renderStory();stoToast("Proyek tersimpan");
+  });
+}
 
 renderDash();
 })();
