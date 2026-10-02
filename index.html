@@ -53,6 +53,17 @@
       <div class="kpi-card"><div class="kpi-top"><span>Likes</span></div><div class="kpi-big" id="k-likes">0</div><div class="kpi-delta up" id="k-likes-d">—</div><canvas class="spark" id="sp-likes"></canvas></div>
       <div class="kpi-card"><div class="kpi-top"><span>Subscriber</span></div><div class="kpi-big" id="k-subs">0</div><div class="kpi-delta up" id="k-subs-d">—</div><canvas class="spark" id="sp-subs"></canvas></div>
     </div>
+    <div class="panel next-panel">
+      <h3>🎬 Video berikutnya</h3>
+      <p class="dim" style="margin-bottom:10px">📌 Rencana aktif: <b id="next-active-text">belum di-set — Dante yang tentuin</b></p>
+      <label class="field">Ide video <input type="text" id="next-idea" placeholder="misal: kucing nyelinap masuk pagar jam 2 pagi"></label>
+      <label class="field">Tema <select id="next-theme"><option value="acak">🎲 Acak</option><option value="hewan">🐾 Hewan</option><option value="misteri">👻 Misteri</option></select></label>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn-primary" id="btn-next-save">💾 Simpan</button>
+        <button class="pill-btn" id="btn-next-copy">📋 Salin & kirim ke Dante</button>
+      </div>
+      <p class="dim" style="font-size:12px;margin:8px 0 0">Simpan di HP → salin → paste di chat. Nanti aku aktifin jadi rencana generate.</p>
+    </div>
     <div class="dash-grid">
       <div class="panel">
         <h3>Konten terbaru</h3><p class="dim">Video terakhir di antrian</p>

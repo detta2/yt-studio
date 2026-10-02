@@ -413,6 +413,30 @@ $("btn-yt-connect").addEventListener("click",function(){
     "&access_type=offline&prompt=consent";
   window.open(u,"_blank");
 });
+/* ---------- video berikutnya (ide generate) ---------- */
+var NEXT_LS="ytstudio_next";
+function renderNext(){
+  var d=null;try{d=JSON.parse(localStorage.getItem(NEXT_LS))}catch(e){}
+  if(d&&d.idea){$("next-idea").value=d.idea;$("next-theme").value=d.theme||"acak"}
+  fetch("next-video.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():null}).then(function(j){
+    if(j&&j.idea)$("next-active-text").textContent=j.idea+" ("+j.theme+")";
+  }).catch(function(){});
+}
+$("btn-next-save").addEventListener("click",function(){
+  var idea=$("next-idea").value.trim();
+  if(!idea){alert("Isi dulu ide videonya");return}
+  localStorage.setItem(NEXT_LS,JSON.stringify({idea:idea,theme:$("next-theme").value}));
+  alert("Tersimpan di HP ✓ — salin & kirim ke Dante biar diaktifin");
+});
+$("btn-next-copy").addEventListener("click",function(){
+  var idea=$("next-idea").value.trim();
+  if(!idea){alert("Isi dulu ide videonya");return}
+  var t="🎬 Generate video besok: "+idea+" (tema: "+$("next-theme").value+")";
+  if(navigator.clipboard)navigator.clipboard.writeText(t).then(function(){alert("Tersalin! Paste di chat ke Dante 📋")});
+  else{prompt("Copy manual:",t)}
+});
+renderNext();
+
 /* status koneksi dari live.json (ditulis backend tiap sinkronisasi) */
 loadLive();
 
