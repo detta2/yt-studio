@@ -5,8 +5,33 @@
   "url": "https://www.youtube.com/@dantekidschannel",
   "channel_id": "UCz5ALJZFiicp8zoQ72RmjzA"
  },
- "channel_stats": null,
- "updated_at": "2026-10-03T13:19:00",
+ "channel_stats": {
+  "date": "2026-10-03",
+  "note": "Hari pertama tayang (channel dibuat 2026-10-03). views_24h tidak ditampilkan terpisah di Studio; hanya Last 48 hours=9. Views 9 di Channel analytics tanpa watch time, kemungkinan views internal/creator; ketiga video masing-masing 0 views di Channel content.",
+  "subs": 0,
+  "videos": [
+   {
+    "slot": "pagi",
+    "title": "Kelinci vs Kura-kura | Dongeng Anak Bergambar",
+    "views": 0
+   },
+   {
+    "slot": "malam",
+    "title": "Kancil dan Buaya 🐭🐊 | Dongeng Anak Bergambar",
+    "views": 0
+   },
+   {
+    "slot": "shorts-malam",
+    "title": "Kiki si Katak Menyelamatkan Biji Tiko! 🐸 #shorts",
+    "views": 0
+   }
+  ],
+  "views_24h": null,
+  "views_48h": 9,
+  "views_7d": 9,
+  "watch_hours": 0.0
+ },
+ "updated_at": "2026-10-03T15:01:54",
  "stats": {
   "total": 3,
   "tayang": 3,
