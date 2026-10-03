@@ -31,13 +31,23 @@
   "views_7d": 9,
   "watch_hours": 0.0
  },
- "updated_at": "2026-10-03T15:01:54",
+ "updated_at": "2026-10-03T23:22:51",
  "stats": {
-  "total": 3,
+  "total": 4,
   "tayang": 3,
-  "terjadwal": 0
+  "terjadwal": 1
  },
  "videos": [
+  {
+   "date": "2026-10-04",
+   "slot": "pagi",
+   "story_id": "singa-tikus",
+   "title": "Singa dan Tikus 🦁🐭 | Dongeng Anak Bergambar",
+   "file": "2026-10-04-pagi-singa-tikus.mp4",
+   "status": "terjadwal",
+   "youtube_url": null,
+   "uploaded_at": null
+  },
   {
    "date": "2026-10-03",
    "slot": "shorts-malam",
