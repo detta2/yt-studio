@@ -637,7 +637,8 @@ function renderDante(){
     DANTE=d;
     if(!d||!d.channel){v.innerHTML='<div class="st-head"><div><h1>'+sic(IC.spark)+' DanteKids</h1><p>Channel dongeng anak — 2 video/hari, jam 7 pagi &amp; 7 malam.</p></div></div><div class="st-empty">'+sic(IC.film)+'<h3>Belum ada data</h3><p>Data channel akan muncul setelah sinkronisasi pertama.</p></div>';return}
     var c=d.channel,st=d.stats||{total:0,tayang:0,terjadwal:0};
-    var h='<div class="st-head"><div><h1>'+sic(IC.spark)+' '+esc(c.name||"DanteKids")+'</h1><p>'+esc(c.handle||"")+' · <a href="'+esc(c.url||"#")+'" target="_blank" rel="noopener" style="color:var(--acc)">Buka channel</a></p></div></div>';
+    var csline=d.channel_stats?'<br>'+fmtN(d.channel_stats.subs||0)+' subscriber · '+fmtN(d.channel_stats.views_7d||0)+' views (7 hari)':"";
+    var h='<div class="st-head"><div><h1>'+sic(IC.spark)+' '+esc(c.name||"DanteKids")+'</h1><p>'+esc(c.handle||"")+' · <a href="'+esc(c.url||"#")+'" target="_blank" rel="noopener" style="color:var(--acc)">Buka channel</a>'+csline+'</p></div></div>';
     h+='<div class="st-stats">'+stStat(IC.film,"Total video",st.total)+stStat(IC.spark,"Tayang",st.tayang)+stStat(IC.clock,"Terjadwal",st.terjadwal)+'</div>';
     h+='<div class="panel"><h3 style="font-size:16px;margin-bottom:14px">Video</h3>';
     var vs=d.videos||[];
