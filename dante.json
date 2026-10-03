@@ -6,13 +6,23 @@
   "channel_id": "UCz5ALJZFiicp8zoQ72RmjzA"
  },
  "channel_stats": null,
- "updated_at": "2026-10-03T12:02:15",
+ "updated_at": "2026-10-03T12:57:07",
  "stats": {
-  "total": 2,
+  "total": 3,
   "tayang": 2,
-  "terjadwal": 0
+  "terjadwal": 1
  },
  "videos": [
+  {
+   "date": "2026-10-03",
+   "slot": "shorts-malam",
+   "story_id": "kancil-buaya",
+   "title": "Kancil Cerdik Lompat di Atas Buaya! 🐊 #shorts",
+   "file": "2026-10-03-shorts-malam-kancil-buaya.mp4",
+   "status": "terjadwal",
+   "youtube_url": null,
+   "uploaded_at": null
+  },
   {
    "date": "2026-10-03",
    "slot": "malam",
