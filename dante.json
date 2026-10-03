@@ -5,11 +5,12 @@
   "url": "https://www.youtube.com/@dantekidschannel",
   "channel_id": "UCz5ALJZFiicp8zoQ72RmjzA"
  },
- "updated_at": "2026-10-03T00:05:53",
+ "channel_stats": null,
+ "updated_at": "2026-10-03T04:59:18",
  "stats": {
-  "total": 2,
+  "total": 3,
   "tayang": 1,
-  "terjadwal": 1
+  "terjadwal": 2
  },
  "videos": [
   {
@@ -18,6 +19,16 @@
    "story_id": "kancil-buaya",
    "title": "Kancil dan Buaya 🐭🐊 | Dongeng Anak Bergambar",
    "file": "2026-10-03-malam-kancil-buaya.mp4",
+   "status": "terjadwal",
+   "youtube_url": null,
+   "uploaded_at": null
+  },
+  {
+   "date": "2026-10-03",
+   "slot": "shorts-siang",
+   "story_id": "kelinci-vs-kura",
+   "title": "Taro Menang! 🐢 #shorts",
+   "file": "2026-10-03-shorts-siang-kelinci-vs-kura.mp4",
    "status": "terjadwal",
    "youtube_url": null,
    "uploaded_at": null
