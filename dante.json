@@ -6,10 +6,10 @@
   "channel_id": "UCz5ALJZFiicp8zoQ72RmjzA"
  },
  "channel_stats": null,
- "updated_at": "2026-10-03T05:16:45",
+ "updated_at": "2026-10-03T05:22:26",
  "stats": {
-  "total": 3,
-  "tayang": 2,
+  "total": 1,
+  "tayang": 0,
   "terjadwal": 1
  },
  "videos": [
@@ -22,26 +22,6 @@
    "status": "terjadwal",
    "youtube_url": null,
    "uploaded_at": null
-  },
-  {
-   "date": "2026-10-03",
-   "slot": "shorts-siang",
-   "story_id": "kelinci-vs-kura",
-   "title": "Balapan Seru! 🐢🐇 #shorts",
-   "file": "2026-10-03-shorts-siang-kelinci-vs-kura.mp4",
-   "status": "tayang",
-   "youtube_url": "https://youtube.com/shorts/mN2VFRbG2dQ",
-   "uploaded_at": "2026-10-03T05:16:45"
-  },
-  {
-   "date": "2026-10-03",
-   "slot": "pagi",
-   "story_id": "kelinci-vs-kura",
-   "title": "Kelinci vs Kura-kura 🐇🐢 | Dongeng Anak Bergambar",
-   "file": "2026-10-03-pagi-kelinci-vs-kura.mp4",
-   "status": "tayang",
-   "youtube_url": "https://www.youtube.com/watch?v=zmQ2325LUG4",
-   "uploaded_at": "2026-10-03T00:05:53"
   }
  ]
 }
