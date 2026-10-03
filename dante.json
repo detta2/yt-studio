@@ -6,11 +6,11 @@
   "channel_id": "UCz5ALJZFiicp8zoQ72RmjzA"
  },
  "channel_stats": null,
- "updated_at": "2026-10-03T04:59:18",
+ "updated_at": "2026-10-03T05:03:13",
  "stats": {
   "total": 3,
-  "tayang": 1,
-  "terjadwal": 2
+  "tayang": 2,
+  "terjadwal": 1
  },
  "videos": [
   {
@@ -29,9 +29,9 @@
    "story_id": "kelinci-vs-kura",
    "title": "Taro Menang! 🐢 #shorts",
    "file": "2026-10-03-shorts-siang-kelinci-vs-kura.mp4",
-   "status": "terjadwal",
-   "youtube_url": null,
-   "uploaded_at": null
+   "status": "tayang",
+   "youtube_url": "https://youtube.com/shorts/rzbC-78UXaw",
+   "uploaded_at": "2026-10-03T05:03:13"
   },
   {
    "date": "2026-10-03",
