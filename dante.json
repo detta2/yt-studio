@@ -6,22 +6,22 @@
   "channel_id": "UCz5ALJZFiicp8zoQ72RmjzA"
  },
  "channel_stats": null,
- "updated_at": "2026-10-03T13:00:24",
+ "updated_at": "2026-10-03T13:15:17",
  "stats": {
   "total": 3,
-  "tayang": 3,
-  "terjadwal": 0
+  "tayang": 2,
+  "terjadwal": 1
  },
  "videos": [
   {
    "date": "2026-10-03",
    "slot": "shorts-malam",
-   "story_id": "kancil-buaya",
-   "title": "Kancil Cerdik Lompat di Atas Buaya! 🐊 #shorts",
-   "file": "2026-10-03-shorts-malam-kancil-buaya.mp4",
-   "status": "tayang",
-   "youtube_url": "https://youtube.com/shorts/uF9DTnl1Fu0",
-   "uploaded_at": "2026-10-03T13:00:24"
+   "story_id": "tupai-katak",
+   "title": "Kiki si Katak Menyelamatkan Biji Tiko! 🐸 #shorts",
+   "file": "2026-10-03-shorts-malam-tupai-katak.mp4",
+   "status": "terjadwal",
+   "youtube_url": null,
+   "uploaded_at": null
   },
   {
    "date": "2026-10-03",
