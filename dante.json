@@ -5,11 +5,11 @@
   "url": "https://www.youtube.com/@dantekidschannel",
   "channel_id": "UCz5ALJZFiicp8zoQ72RmjzA"
  },
- "updated_at": "2026-10-02T23:02:36",
+ "updated_at": "2026-10-03T00:05:53",
  "stats": {
   "total": 2,
-  "tayang": 0,
-  "terjadwal": 2
+  "tayang": 1,
+  "terjadwal": 1
  },
  "videos": [
   {
@@ -28,9 +28,9 @@
    "story_id": "kelinci-vs-kura",
    "title": "Kelinci vs Kura-kura 🐇🐢 | Dongeng Anak Bergambar",
    "file": "2026-10-03-pagi-kelinci-vs-kura.mp4",
-   "status": "terjadwal",
-   "youtube_url": null,
-   "uploaded_at": null
+   "status": "tayang",
+   "youtube_url": "https://www.youtube.com/watch?v=zmQ2325LUG4",
+   "uploaded_at": "2026-10-03T00:05:53"
   }
  ]
 }
