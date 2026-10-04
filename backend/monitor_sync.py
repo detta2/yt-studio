@@ -35,7 +35,7 @@ def analytics_report(channel_id, metrics, start, end):
                 "metrics": metrics,
             },
             headers={"Authorization": "Bearer " + auth.get_access_token()},
-            timeout=30,
+            timeout=20,
         )
         if r.status_code == 403:
             return None
