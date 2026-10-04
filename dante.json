@@ -31,11 +31,11 @@
   "views_7d": 9,
   "watch_hours": 0.0
  },
- "updated_at": "2026-10-04T05:13:54",
+ "updated_at": "2026-10-04T12:01:44",
  "stats": {
   "total": 6,
-  "tayang": 5,
-  "terjadwal": 1
+  "tayang": 6,
+  "terjadwal": 0
  },
  "videos": [
   {
@@ -44,9 +44,9 @@
    "story_id": "timun-mas",
    "title": "Timun Mas 🌱👧 | Dongeng Anak Bergambar",
    "file": "2026-10-04-malam-timun-mas.mp4",
-   "status": "terjadwal",
-   "youtube_url": null,
-   "uploaded_at": null
+   "status": "tayang",
+   "youtube_url": "https://www.youtube.com/watch?v=xSeyeW3wKXY",
+   "uploaded_at": "2026-10-04T12:01:44"
   },
   {
    "date": "2026-10-04",
