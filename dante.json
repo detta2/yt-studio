@@ -36,13 +36,23 @@
    }
   ]
  },
- "updated_at": "2026-10-04T22:51:02",
+ "updated_at": "2026-10-04T22:51:05",
  "stats": {
-  "total": 8,
+  "total": 9,
   "tayang": 7,
-  "terjadwal": 1
+  "terjadwal": 2
  },
  "videos": [
+  {
+   "date": "2026-10-05",
+   "slot": "malam",
+   "story_id": "bebek-buruk-rupa",
+   "title": "Bebek Buruk Rupa",
+   "file": "2026-10-05-malam-bebek-buruk-rupa.mp4",
+   "status": "terjadwal",
+   "youtube_url": null,
+   "uploaded_at": null
+  },
   {
    "date": "2026-10-05",
    "slot": "pagi",
