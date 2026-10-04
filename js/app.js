@@ -64,6 +64,9 @@ document.querySelectorAll(".nav-item").forEach(function(b){
     if(vw==="comments")renderComments();
     if(vw==="story"){stoRoute={name:"home"};renderStory()}
     if(vw==="dante")renderDante();
+    if(vw==="dantestory")renderChanView(CHANVIEWS.dantestory);
+    if(vw==="dantejr")renderChanView(CHANVIEWS.dantejr);
+    if(vw==="dantekids")renderChanView(CHANVIEWS.dantekids);
   });
 });
 $("btn-menu").addEventListener("click",function(){$("sidebar").classList.toggle("open")});
@@ -633,18 +636,18 @@ function wizStep3(v,d){
 }
 
 try{renderDash()}catch(e){if(window.console)console.log("dash skip:",e)}
-/* ---------- DanteKids channel (dante.json, ditulis video_log.py) ---------- */
+/* ---------- DanteChannel (dante.json, ditulis video_log.py) ---------- */
 var DANTE=null;
 function danteDate(s){if(!s)return"—";var p=s.split("-");var d=new Date(+p[0],+p[1]-1,+p[2]);return d.toLocaleDateString("id-ID",{day:"numeric",month:"short"})}
 function renderDante(){
   var v=$("view-dante");if(!v)return;
-  v.innerHTML='<div class="st-head"><div><h1>'+sic(IC.spark)+' DanteKids</h1><p>Channel dongeng anak — 2 video/hari, jam 7 pagi &amp; 7 malam.</p></div></div><div class="panel"><p style="color:var(--text2)">Memuat data…</p></div>';
+  v.innerHTML='<div class="st-head"><div><h1>'+sic(IC.spark)+' DanteChannel</h1><p>Channel dongeng anak — 2 video/hari, jam 7 pagi &amp; 7 malam.</p></div></div><div class="panel"><p style="color:var(--text2)">Memuat data…</p></div>';
   fetch("dante.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():null}).then(function(d){
     DANTE=d;
-    if(!d||!d.channel){v.innerHTML='<div class="st-head"><div><h1>'+sic(IC.spark)+' DanteKids</h1><p>Channel dongeng anak — 2 video/hari, jam 7 pagi &amp; 7 malam.</p></div></div><div class="st-empty">'+sic(IC.film)+'<h3>Belum ada data</h3><p>Data channel akan muncul setelah sinkronisasi pertama.</p></div>';return}
+    if(!d||!d.channel){v.innerHTML='<div class="st-head"><div><h1>'+sic(IC.spark)+' DanteChannel</h1><p>Channel dongeng anak — 2 video/hari, jam 7 pagi &amp; 7 malam.</p></div></div><div class="st-empty">'+sic(IC.film)+'<h3>Belum ada data</h3><p>Data channel akan muncul setelah sinkronisasi pertama.</p></div>';return}
     var c=d.channel,st=d.stats||{total:0,tayang:0,terjadwal:0};
     var csline=d.channel_stats?'<br>'+fmtN(d.channel_stats.subs||0)+' subscriber · '+fmtN(d.channel_stats.views_7d||0)+' views (7 hari)':"";
-    var h='<div class="st-head"><div><h1>'+sic(IC.spark)+' '+esc(c.name||"DanteKids")+'</h1><p>'+esc(c.handle||"")+' · <a href="'+esc(c.url||"#")+'" target="_blank" rel="noopener" style="color:var(--acc)">Buka channel</a>'+csline+'</p></div></div>';
+    var h='<div class="st-head"><div><h1>'+sic(IC.spark)+' '+esc(c.name||"DanteChannel")+'</h1><p>'+esc(c.handle||"")+' · <a href="'+esc(c.url||"#")+'" target="_blank" rel="noopener" style="color:var(--acc)">Buka channel</a>'+csline+'</p></div></div>';
     h+='<div class="st-stats">'+stStat(IC.film,"Total video",st.total)+stStat(IC.spark,"Tayang",st.tayang)+stStat(IC.clock,"Terjadwal",st.terjadwal)+'</div>';
     h+='<div class="panel"><h3 style="font-size:16px;margin-bottom:14px">Video</h3>';
     var vs=d.videos||[];
@@ -663,6 +666,35 @@ function renderDante(){
     h+='</div><div class="st-tips" style="text-align:center">Sinkron terakhir: '+esc(d.updated_at||"—")+'</div>';
     v.innerHTML=h;
   }).catch(function(){v.innerHTML='<div class="st-empty">'+sic(IC.film)+'<h3>Gagal memuat data</h3><p>Tidak bisa membaca dante.json.</p></div>'});
+}
+/* ---------- Channel baru: DanteStory / DanteJr / DanteKids ---------- */
+var CHANVIEWS={
+  dantestory:{view:"view-dantestory",json:"dantestory.json",icon:"📜",title:"DanteStory",sub:"Cerita AI Indonesia — 1 video/hari, jam 10:00.",empty:"Video pertama tayang 5 Okt 2026 jam 10:00."},
+  dantejr:{view:"view-dantejr",json:"dantejr.json",icon:"🔬",title:"DanteJr",sub:"Fakta seru & eksperimen anak — 1 video/hari, jam 13:00.",empty:"Video pertama tayang 5 Okt 2026 jam 13:00."},
+  dantekids:{view:"view-dantekids",json:"dantekids.json",icon:"🎵",title:"DanteKids",sub:"Lagu anak karaoke — 1 video/hari, jam 16:00.",empty:"Video pertama tayang 5 Okt 2026 jam 16:00."}
+};
+function renderChanView(cfg){
+  var v=$(cfg.view);if(!v)return;
+  v.innerHTML='<div class="st-head"><div><h1>'+cfg.icon+' '+cfg.title+'</h1><p>'+cfg.sub+'</p></div></div><div class="panel"><p style="color:var(--text2)">Memuat data…</p></div>';
+  fetch(cfg.json,{cache:"no-store"}).then(function(r){return r.ok?r.json():null}).then(function(d){
+    if(!d||!d.channel){v.innerHTML='<div class="st-head"><div><h1>'+cfg.icon+' '+cfg.title+'</h1><p>'+cfg.sub+'</p></div></div><div class="st-empty">'+sic(IC.film)+'<h3>Belum ada data</h3><p>'+cfg.empty+'</p></div>';return}
+    var c=d.channel,st=d.stats||{total:0,tayang:0,terjadwal:0};
+    var h='<div class="st-head"><div><h1>'+cfg.icon+' '+esc(c.name||cfg.title)+'</h1><p>'+esc(c.handle||"")+' · <a href="'+esc(c.url||"#")+'" target="_blank" rel="noopener" style="color:var(--acc)">Buka channel</a></p></div></div>';
+    h+='<div class="st-stats">'+stStat(IC.film,"Total video",st.total)+stStat(IC.spark,"Tayang",st.tayang)+stStat(IC.clock,"Terjadwal",st.terjadwal)+'</div>';
+    h+='<div class="panel"><h3 style="font-size:16px;margin-bottom:14px">Video</h3>';
+    var vs=d.videos||[];
+    if(!vs.length){h+='<div class="st-empty">'+sic(IC.film)+'<h3>Belum ada video</h3><p>'+cfg.empty+'</p></div>'}
+    vs.forEach(function(x,i){
+      var tayang=x.status==="tayang";
+      var badge=tayang?'<span class="st-st done">Tayang</span>':'<span class="st-st">Terjadwal</span>';
+      var link=x.youtube_url?'<a class="pill-btn" href="'+esc(x.youtube_url)+'" target="_blank" rel="noopener" style="text-decoration:none">Tonton</a>':"";
+      h+='<div class="st-proj"><div class="st-thumb stg'+((i%5)+1)+'"><span class="st-fmt">📅</span></div>'
+        +'<div class="st-pb"><h3>'+esc(x.title||"(tanpa judul)")+'</h3><div class="m">'+danteDate(x.date)+' · Video harian</div></div>'
+        +badge+link+'</div>';
+    });
+    h+='</div><div class="st-tips" style="text-align:center">Sinkron terakhir: '+esc(d.updated_at||"—")+'</div>';
+    v.innerHTML=h;
+  }).catch(function(){v.innerHTML='<div class="st-empty">'+sic(IC.film)+'<h3>Gagal memuat data</h3><p>Tidak bisa membaca '+cfg.json+'.</p></div>'});
 }
 /* ================= MONITOR (multi-channel monetization tracker) ================= */
 var PF=null;

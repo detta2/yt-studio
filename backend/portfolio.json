@@ -131,7 +131,136 @@
    "watch_hours_365": 0.0,
    "watch_hours_manual": true,
    "ypp": false
+  },
+  {
+   "name": "DanteStory",
+   "id": "UCFBqJ7_lzbGktuFMdsbyXHg",
+   "handle": "@DanteStory-f5t",
+   "category": "Cerita",
+   "subs": 0,
+   "views": 0,
+   "videos": 0,
+   "watch_hours_365": 0.0,
+   "watch_hours_manual": false,
+   "oauth": false,
+   "ypp": false,
+   "last_publish": null,
+   "scheduled": 0,
+   "drafts": 0,
+   "ctr": null,
+   "avg_view_duration": "0:00",
+   "laju_per_hari": 0,
+   "ranges": {
+    "7": {
+     "views": 0,
+     "watch_hours": 0.0,
+     "subs_gained": 0
+    },
+    "28": {
+     "views": 0,
+     "watch_hours": 0.0,
+     "subs_gained": 0
+    },
+    "90": {
+     "views": 0,
+     "watch_hours": 0.0,
+     "subs_gained": 0
+    },
+    "365": {
+     "views": 0,
+     "watch_hours": 0.0,
+     "subs_gained": 0
+    }
+   },
+   "videos_detail": [],
+   "notes": "Cerita AI Indonesia (sejarah/legenda/misteri) — 1 video/hari jam 10:00"
+  },
+  {
+   "name": "DanteJr",
+   "id": "UC1tw1f5yPWqMQ00ZUUQiDNQ",
+   "handle": "@DanteJr-m3p",
+   "category": "Anak",
+   "subs": 0,
+   "views": 0,
+   "videos": 0,
+   "watch_hours_365": 0.0,
+   "watch_hours_manual": false,
+   "oauth": false,
+   "ypp": false,
+   "last_publish": null,
+   "scheduled": 0,
+   "drafts": 0,
+   "ctr": null,
+   "avg_view_duration": "0:00",
+   "laju_per_hari": 0,
+   "ranges": {
+    "7": {
+     "views": 0,
+     "watch_hours": 0.0,
+     "subs_gained": 0
+    },
+    "28": {
+     "views": 0,
+     "watch_hours": 0.0,
+     "subs_gained": 0
+    },
+    "90": {
+     "views": 0,
+     "watch_hours": 0.0,
+     "subs_gained": 0
+    },
+    "365": {
+     "views": 0,
+     "watch_hours": 0.0,
+     "subs_gained": 0
+    }
+   },
+   "videos_detail": [],
+   "notes": "Fakta seru + eksperimen anak 7-12 th — 1 video/hari jam 13:00"
+  },
+  {
+   "name": "DanteKids",
+   "id": "UCcECTOy0ONVekvgheauUGFg",
+   "handle": "@DanteKids-h1s",
+   "category": "Anak",
+   "subs": 0,
+   "views": 0,
+   "videos": 0,
+   "watch_hours_365": 0.0,
+   "watch_hours_manual": false,
+   "oauth": false,
+   "ypp": false,
+   "last_publish": null,
+   "scheduled": 0,
+   "drafts": 0,
+   "ctr": null,
+   "avg_view_duration": "0:00",
+   "laju_per_hari": 0,
+   "ranges": {
+    "7": {
+     "views": 0,
+     "watch_hours": 0.0,
+     "subs_gained": 0
+    },
+    "28": {
+     "views": 0,
+     "watch_hours": 0.0,
+     "subs_gained": 0
+    },
+    "90": {
+     "views": 0,
+     "watch_hours": 0.0,
+     "subs_gained": 0
+    },
+    "365": {
+     "views": 0,
+     "watch_hours": 0.0,
+     "subs_gained": 0
+    }
+   },
+   "videos_detail": [],
+   "notes": "Lagu anak karaoke (melodi sintesis lokal) — 1 video/hari jam 16:00"
   }
  ],
- "updated_at": "04 Oct 2026 17:09 WIB"
+ "updated_at": "04 Oct 2026 12:58 WIB"
 }
