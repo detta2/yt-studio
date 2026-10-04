@@ -31,11 +31,11 @@
   "views_7d": 9,
   "watch_hours": 0.0
  },
- "updated_at": "2026-10-04T05:10:38",
+ "updated_at": "2026-10-04T05:13:54",
  "stats": {
   "total": 6,
-  "tayang": 4,
-  "terjadwal": 2
+  "tayang": 5,
+  "terjadwal": 1
  },
  "videos": [
   {
@@ -54,9 +54,9 @@
    "story_id": "bebek-berani",
    "title": "Beni si Bebek Akhirnya Berani Berenang! 🦆 #shorts",
    "file": "2026-10-04-shorts-siang-bebek-berani.mp4",
-   "status": "terjadwal",
-   "youtube_url": null,
-   "uploaded_at": null
+   "status": "tayang",
+   "youtube_url": "https://www.youtube.com/shorts/THTyt4HwJso",
+   "uploaded_at": "2026-10-04T05:13:54"
   },
   {
    "date": "2026-10-04",
