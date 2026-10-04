@@ -3,51 +3,158 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Studio — Content Manager</title>
+<title>YT Monitor — Studio Pro</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <header class="topbar">
-  <button class="icon-btn" id="btn-menu"><svg class="tic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/></svg></button>
-  <div class="studio-logo"><span class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span> Studio</div>
-  <div class="search"><span class="search-ico"><svg class="tic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span><input type="text" id="search" placeholder="Telusuri konten..."></div>
-  <div class="top-actions">
-    <button class="icon-btn" title="Bantuan"><svg class="tic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></button>
-    <button class="icon-btn" title="Notifikasi"><svg class="tic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></button>
-    <button class="create-btn">⊕ Buat</button>
-    <span class="uava">D</span>
+  <button class="icon-btn only-mobile" id="btn-menu">☰</button>
+  <div class="brand">
+    <div class="brand-logo">▶</div>
+    <div>
+      <div class="brand-title">YT MONITOR <span class="pro-badge">STUDIO PRO</span></div>
+      <div class="brand-sub">Multi-Channel Management &amp; Jam Tayang 365 Hari Monetization Tracker</div>
+    </div>
+  </div>
+  <div class="top-right">
+    <div class="admin-chip"><span class="ava">A</span> Admin YT Monitor</div>
+    <span class="tier-badge">⚡ PLATINUM</span>
+    <span class="status-badge">AKTIF</span>
+    <div class="chan-progress"><div class="bar"><i id="top-chan-bar" style="width:2%"></i></div><span id="top-chan-label">2/100 Channel</span></div>
+    <button class="tbtn">👤 Profil</button>
+    <button class="tbtn upgrade">Upgrade 🚀</button>
+    <button class="tbtn">🛡 Admin</button>
+    <button class="tbtn">Keluar</button>
   </div>
 </header>
 
 <div class="shell">
 <aside class="sidebar" id="sidebar">
-  <div class="chan">
-    <div class="chan-ava">🎬</div>
-    <div class="chan-name">Kanal Saya</div>
-    <div class="chan-sub">Shorts CCTV</div>
-  </div>
   <nav class="nav">
-    <button class="nav-item active" data-view="dash"><span class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg></span>Dashboard</button>
-    <button class="nav-item" data-view="content"><span class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18"/><path d="M3 7.5h4"/><path d="M3 12h18"/><path d="M3 16.5h4"/><path d="M17 3v18"/><path d="M17 7.5h4"/><path d="M17 16.5h4"/></svg></span>Konten</button>
-    <button class="nav-item" data-view="calendar"><span class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg></span>Kalender</button>
-    <button class="nav-item" data-view="analytics"><span class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></span>Analitik</button>
-    <button class="nav-item" data-view="comments"><span class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg></span>Komentar</button>
+    <button class="nav-item active" data-view="monitor"><span class="ni">📊</span>Monitor</button>
+    <button class="nav-item" data-view="chanalytics"><span class="ni">📈</span>Analytics</button>
+    <div class="nav-sep"></div>
+    <button class="nav-item" data-view="content"><span class="ni">🎬</span>Konten</button>
+    <button class="nav-item" data-view="calendar"><span class="ni">📅</span>Kalender</button>
+    <button class="nav-item" data-view="comments"><span class="ni">💬</span>Komentar</button>
     <div class="nav-sep"></div>
     <div class="nav-label">VIDEO CERITA</div>
-    <button class="nav-item" data-view="story"><span class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg></span>Cerita</button>
+    <button class="nav-item" data-view="story"><span class="ni">📖</span>Cerita</button>
     <div class="nav-sep"></div>
     <div class="nav-label">CHANNEL ANAK</div>
-    <button class="nav-item" data-view="dante"><span class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h.01"/><path d="M15 12h.01"/><path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"/><path d="M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"/></svg></span>DanteKids</button>
+    <button class="nav-item" data-view="dante"><span class="ni">🧒</span>DanteKids</button>
     <div class="nav-sep"></div>
-    <button class="nav-item" data-view="settings"><span class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></span>Setelan</button>
+    <button class="nav-item" data-view="settings"><span class="ni">⚙️</span>Setelan</button>
   </nav>
-  <div class="side-foot"><div class="yt-status"><span class="dot off"></span>YouTube: belum terhubung</div></div>
+  <div class="side-foot"><div class="yt-status"><span class="dot off"></span><span id="yt-status">Status: belum terhubung</span></div></div>
 </aside>
 
 <main class="main">
-  <!-- ================= DASHBOARD ================= -->
-  <section class="view active" id="view-dash">
+
+  <!-- ================= MONITOR (multi-channel) ================= -->
+  <section class="view active" id="view-monitor">
+    <div class="mon-status">
+      <span class="pill-ok">🟢 SQLite Cloud Aktif</span>
+      <span class="dim">Portofolio Multi-Channel Aktif</span>
+      <span class="spacer"></span>
+      <button class="btn-ghost" id="btn-sync-all">🔄 Sync Semua (365 Hari)</button>
+      <button class="btn-red" id="btn-add-channel">＋ Tambah Channel</button>
+      <button class="btn-ghost" id="btn-api-oauth">⚙️ API &amp; OAuth</button>
+    </div>
+
+    <div class="kpi5">
+      <div class="kpi-card"><div class="kpi-top"><span>TOTAL CHANNEL</span><span class="kpi-ico">🎥</span></div><div class="kpi-big" id="m-total">0</div><div class="kpi-sub">Semua channel di portofolio</div></div>
+      <div class="kpi-card gold"><div class="kpi-top"><span>SIAP PENGAJUAN</span><span class="kpi-ico">⭐</span></div><div class="kpi-big gold-t" id="m-ready">0</div><div class="kpi-sub">≥4.000 jam (365d) &amp; ≥1.000 subs</div></div>
+      <div class="kpi-card green"><div class="kpi-top"><span>SUDAH MONET (YPP)</span><span class="kpi-ico">$</span></div><div class="kpi-big green-t" id="m-monet">0</div><div class="kpi-sub">Aktif AdSense &amp; Menghasilkan</div></div>
+      <div class="kpi-card blue"><div class="kpi-top"><span>OTW MONET (&gt;70%)</span><span class="kpi-ico">📊</span></div><div class="kpi-big blue-t" id="m-otw">0</div><div class="kpi-sub">Jam tayang mendekati 4.000</div></div>
+      <div class="kpi-card"><div class="kpi-top"><span>TOTAL JAM TAYANG</span><span class="kpi-ico">🕐</span></div><div class="kpi-big red-t" id="m-hours">0 Jam</div><div class="kpi-sub">Akumulasi seluruh portofolio</div></div>
+    </div>
+
+    <div class="spotlight" id="spotlight" hidden>
+      <div class="sp-trophy">🏆</div>
+      <div class="sp-body">
+        <div class="sp-title" id="sp-title"></div>
+        <div class="sp-sub" id="sp-sub"></div>
+      </div>
+      <div class="sp-actions">
+        <button class="btn-gold" id="btn-update-jam">🕐 Update Jam</button>
+        <button class="btn-ghost" id="btn-lihat-syarat">Lihat Syarat</button>
+      </div>
+    </div>
+
+    <div class="mon-filters">
+      <div class="filter-tabs" id="mon-tabs">
+        <button class="ftab active" data-f="all">Semua <span class="cnt" id="c-all">0</span></button>
+        <button class="ftab" data-f="ready">🟡 Siap Pengajuan <span class="cnt" id="c-ready">0</span></button>
+        <button class="ftab" data-f="monet">🟢 Sudah Monet <span class="cnt" id="c-monet">0</span></button>
+        <button class="ftab" data-f="otw">🔵 Otw Monet (&gt;70%) <span class="cnt" id="c-otw">0</span></button>
+        <button class="ftab" data-f="growth">⚪ Masa Pertumbuhan <span class="cnt" id="c-growth">0</span></button>
+      </div>
+      <div class="view-toggle">
+        <button class="tbtn active" id="vt-grid" title="Grid">▦</button>
+        <button class="tbtn" id="vt-list" title="List">☰</button>
+      </div>
+    </div>
+
+    <div class="mon-search">
+      <div class="search-box">🔍<input type="text" id="mon-q" placeholder="Cari nama channel, handle (@...), atau catatan..."></div>
+      <select id="mon-cat" class="sel"><option value="all">Semua Kategori</option></select>
+      <select id="mon-sort" class="sel">
+        <option value="near">🎯 Paling Dekat Monetisasi (Jam Tayang %)</option>
+        <option value="subs">Subscriber Terbanyak</option>
+        <option value="views">Views Terbanyak</option>
+        <option value="hours">Jam Tayang Terbanyak</option>
+        <option value="name">Nama A–Z</option>
+      </select>
+    </div>
+
+    <div class="chan-grid" id="chan-grid"></div>
+    <div class="empty" id="chan-empty" hidden><div class="empty-ico">📺</div><p>Belum ada channel di portofolio.</p><button class="btn-red" id="btn-add-channel2">＋ Tambah Channel</button></div>
+    <p class="dim" style="margin-top:14px;font-size:12px" id="mon-synced"></p>
+  </section>
+
+  <!-- ================= ANALYTICS PER CHANNEL ================= -->
+  <section class="view" id="view-chanalytics">
+    <div class="ca-head">
+      <div class="ca-title"><span class="yt-ico">▶</span><div><h1>YouTube Studio Analytics</h1><p class="dim" id="ca-chan-sub"></p></div></div>
+      <select id="ca-select" class="sel"></select>
+    </div>
+    <div class="ca-range">
+      <span class="dim">Rentang Waktu:</span>
+      <div class="range-pills" id="ca-ranges">
+        <button data-r="7">7 Hari</button>
+        <button data-r="28" class="active">28 Hari</button>
+        <button data-r="90">90 Hari</button>
+        <button data-r="365">365 Hari</button>
+        <button data-r="life">Lifetime</button>
+      </div>
+      <span class="spacer"></span>
+      <span class="dim" id="ca-range-label">Data Analisa 28 Hari Terakhir</span>
+    </div>
+    <div class="kpi4">
+      <div class="kpi-card"><div class="kpi-top"><span>👁 JML VIEW</span></div><div class="kpi-big" id="ca-views">—</div><div class="kpi-sub">Total penayangan video</div></div>
+      <div class="kpi-card"><div class="kpi-top"><span>🕐 JAM TAYANG</span></div><div class="kpi-big blue-t" id="ca-hours">—</div><div class="kpi-sub">Waktu tonton publik</div></div>
+      <div class="kpi-card"><div class="kpi-top"><span>➕ SUBSCRIBER</span></div><div class="kpi-big green-t" id="ca-subs">—</div><div class="kpi-sub">Pertumbuhan subscriber</div></div>
+      <div class="kpi-card"><div class="kpi-top"><span>🎯 CTR (RASIO KLIK)</span></div><div class="kpi-big" id="ca-ctr">—</div><div class="kpi-sub">Click-through rate tayangan</div></div>
+    </div>
+    <div class="kpi4">
+      <div class="kpi-card"><div class="kpi-top"><span>🕐 AVG VIEW DURATION</span></div><div class="kpi-big" id="ca-avg">—</div><div class="kpi-sub">Rata-rata durasi tonton</div></div>
+      <div class="kpi-card"><div class="kpi-top"><span>📅 TGL TERAKHIR PUBLISH</span></div><div class="kpi-big" id="ca-lastpub" style="font-size:26px">—</div><div class="kpi-sub">Rilis video terbaru</div></div>
+      <div class="kpi-card"><div class="kpi-top"><span>🗓 JML VIDEO SCHEDULE</span></div><div class="kpi-big blue-t" id="ca-sched">—</div><div class="kpi-sub">Video antrean terjadwal</div></div>
+      <div class="kpi-card"><div class="kpi-top"><span>📄 JML DRAFT</span></div><div class="kpi-big" id="ca-draft" style="color:#b48cff">—</div><div class="kpi-sub">Video draf belum publish</div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h3>🎬 Konten Channel <span class="dim" style="font-weight:400;font-size:12px">(Daftar Video Studio)</span></h3><span class="dim" style="font-size:12px">Menampilkan video terbaru, visibilitas &amp; interaksi</span></div>
+      <div class="table-wrap"><table class="table">
+        <thead><tr><th>VIDEO</th><th>PEMBATASAN (NOTICES)</th><th>VISIBILITAS</th><th>TANGGAL (DATE)</th><th>PENAYANGAN (VIEW)</th><th>KOMENTAR</th></tr></thead>
+        <tbody id="ca-tbody"></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <!-- ================= DASHBOARD (lama, disembunyikan dari nav) ================= -->
+  <section class="view" id="view-dash">
     <div class="dash-head">
       <div><h1>Dashboard channel</h1><p class="dim" id="dash-range-label"></p></div>
       <div class="dash-head-right">
@@ -60,40 +167,14 @@
       <div class="kpi-card"><div class="kpi-top"><span>Likes</span></div><div class="kpi-big" id="k-likes">0</div><div class="kpi-delta up" id="k-likes-d">—</div><canvas class="spark" id="sp-likes"></canvas></div>
       <div class="kpi-card"><div class="kpi-top"><span>Subscriber</span></div><div class="kpi-big" id="k-subs">0</div><div class="kpi-delta up" id="k-subs-d">—</div><canvas class="spark" id="sp-subs"></canvas></div>
     </div>
-    <div class="panel next-panel">
-      <h3>🎬 Video berikutnya</h3>
-      <p class="dim" style="margin-bottom:10px">📌 Rencana aktif: <b id="next-active-text">belum di-set — Dante yang tentuin</b></p>
-      <label class="field">Ide video <input type="text" id="next-idea" placeholder="misal: kucing nyelinap masuk pagar jam 2 pagi"></label>
-      <label class="field">Tema <select id="next-theme"><option value="acak">🎲 Acak</option><option value="hewan">🐾 Hewan</option><option value="misteri">👻 Misteri</option></select></label>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn-primary" id="btn-next-save">💾 Simpan</button>
-        <button class="pill-btn" id="btn-next-copy">📋 Salin & kirim ke Dante</button>
-      </div>
-      <p class="dim" style="font-size:12px;margin:8px 0 0">Simpan di HP → salin → paste di chat. Nanti aku aktifin jadi rencana generate.</p>
+    <div class="grid2">
+      <div class="panel"><h3>Performa 14 hari</h3><canvas id="chart-main" height="180"></canvas>
+        <div class="legend"><span><i class="sw" style="background:#8b7cf6"></i>Views</span><span><i class="sw" style="background:#3ea6ff"></i>Likes ×20</span></div></div>
+      <div class="panel"><h3>Video teratas</h3><canvas id="chart-bars" height="180"></canvas></div>
     </div>
-    <div class="dash-grid">
-      <div class="panel">
-        <h3>Konten terbaru</h3><p class="dim">Video terakhir di antrian</p>
-        <div id="latest-list"></div>
-        <button class="wide-btn" id="btn-add3">⊕ Tambah konten</button>
-      </div>
-      <div class="dash-side">
-        <div class="panel">
-          <h3>📅 Kalender rilis</h3>
-          <div class="mini-cal-head"><button class="icon-btn" id="mcal-prev">‹</button><span id="mcal-title"></span><button class="icon-btn" id="mcal-next">›</button></div>
-          <div class="mini-cal" id="mini-cal"></div>
-          <div id="mini-legend" class="dim" style="margin-top:8px;font-size:12px"></div>
-        </div>
-        <div class="panel">
-          <h3>Views & likes</h3>
-          <canvas id="chart-main" height="180"></canvas>
-          <div class="legend"><span><i class="sw" style="background:#8b7cf6"></i>Views</span><span><i class="sw" style="background:#3ea6ff"></i>Likes ×20</span></div>
-        </div>
-        <div class="panel">
-          <h3>Performa per konten</h3>
-          <canvas id="chart-bars" height="180"></canvas>
-        </div>
-      </div>
+    <div class="grid2">
+      <div class="panel"><h3>Konten terbaru</h3><div id="latest-list"></div></div>
+      <div class="panel"><h3>Kalender <span class="dim" id="mcal-title"></span></h3><div class="mini-cal" id="mini-cal"></div><p class="dim" id="mini-legend"></p></div>
     </div>
   </section>
 
@@ -123,52 +204,6 @@
     <div class="cal-grid" id="cal-grid"></div>
   </section>
 
-  <!-- ================= ANALITIK ================= -->
-  <section class="view" id="view-analytics">
-    <div class="dash-head"><div><h1>Analitik channel</h1><p class="dim" id="ana-sub">Data live dari channel · sinkron harian</p></div></div>
-    <div class="filter-tabs" id="ana-tabs">
-      <button class="ftab active" data-t="ringkas">Ringkasan</button>
-      <button class="ftab" data-t="jangkau">Jangkauan</button>
-      <button class="ftab" data-t="interaksi">Interaksi</button>
-      <button class="ftab" data-t="audiens">Audiens</button>
-    </div>
-    <div class="ana-panel" id="ana-ringkas">
-      <div class="kpi3">
-        <div class="kpi-card"><div class="kpi-top"><span>Views</span></div><div class="kpi-big" id="a-views">0</div></div>
-        <div class="kpi-card"><div class="kpi-top"><span>Likes</span></div><div class="kpi-big" id="a-likes">0</div></div>
-        <div class="kpi-card"><div class="kpi-top"><span>Subscriber</span></div><div class="kpi-big" id="a-subs">0</div></div>
-      </div>
-      <div class="panel"><h3>Tren 14 hari</h3><canvas id="chart-ana-main" height="200"></canvas>
-        <div class="legend"><span><i class="sw" style="background:#8b7cf6"></i>Views</span><span><i class="sw" style="background:#3ea6ff"></i>Likes ×20</span></div></div>
-    </div>
-    <div class="ana-panel" id="ana-jangkau" hidden>
-      <div class="kpi3">
-        <div class="kpi-card"><div class="kpi-top"><span>Tayangan</span></div><div class="kpi-big" id="j-imp">0</div></div>
-        <div class="kpi-card"><div class="kpi-top"><span>Rasio klik tayangan</span></div><div class="kpi-big" id="j-ctr">0%</div></div>
-        <div class="kpi-card"><div class="kpi-top"><span>Views dari penelusuran</span></div><div class="kpi-big" id="j-src">0</div></div>
-      </div>
-      <div class="panel"><h3>Sumber traffic</h3>
-        <div class="table-wrap"><table class="table"><thead><tr><th>Sumber</th><th>Views</th><th>%</th></tr></thead><tbody id="traffic-tbody"></tbody></table></div></div>
-    </div>
-    <div class="ana-panel" id="ana-interaksi" hidden>
-      <div class="kpi3">
-        <div class="kpi-card"><div class="kpi-top"><span>Likes</span></div><div class="kpi-big" id="i-likes">0</div></div>
-        <div class="kpi-card"><div class="kpi-top"><span>Komentar</span></div><div class="kpi-big" id="i-comments">0</div></div>
-        <div class="kpi-card"><div class="kpi-top"><span>Share</span></div><div class="kpi-big" id="i-shares">0</div></div>
-      </div>
-      <div class="panel"><h3>Video teratas (interaksi)</h3>
-        <div class="table-wrap"><table class="table"><thead><tr><th>Video</th><th>Likes</th><th>Komentar</th></tr></thead><tbody id="top-tbody"></tbody></table></div></div>
-    </div>
-    <div class="ana-panel" id="ana-audiens" hidden>
-      <div class="kpi3">
-        <div class="kpi-card"><div class="kpi-top"><span>Subscriber baru</span></div><div class="kpi-big" id="au-subs">0</div></div>
-        <div class="kpi-card"><div class="kpi-top"><span>Penonton unik</span></div><div class="kpi-big" id="au-uniq">0</div></div>
-        <div class="kpi-card"><div class="kpi-top"><span>% dari Indonesia</span></div><div class="kpi-big" id="au-id">0%</div></div>
-      </div>
-      <div class="panel"><h3>Kelompok usia penonton</h3><canvas id="chart-age" height="200"></canvas></div>
-    </div>
-  </section>
-
   <!-- ================= KOMENTAR ================= -->
   <section class="view" id="view-comments">
     <div class="dash-head"><div><h1>Komentar</h1><p class="dim">Komentar asli dari channel · sinkron harian</p></div></div>
@@ -188,10 +223,15 @@
   <section class="view" id="view-settings">
     <div class="dash-head"><div><h1>Setelan</h1></div></div>
     <div class="panel"><h3>Koneksi YouTube</h3>
-      <p class="dim" id="yt-status">Status: belum terhubung</p>
+      <p class="dim" id="yt-status2">Status: belum terhubung</p>
       <button class="btn-primary" id="btn-yt-connect">🔌 Hubungkan YouTube</button>
-      <p class="dim" style="margin-top:10px;font-size:12px">Setelah klik: login Google di tab baru → setujui → halaman gagal dimuat itu wajar → copy kode <b>code=...</b> dari address bar → kirim ke Dante via chat.</p></div>
-    <div class="panel"><h3>Jadwal & tema</h3>
+      <p class="dim" style="margin-top:10px;font-size:12px">Setelah klik: login Google di tab baru → setujui → halaman gagal dimuat itu wajar → copy kode <b>code=...</b> dari address bar → kirim ke Dante via chat.<br><br><b>Catatan:</b> untuk jam tayang 365 hari &amp; analitik per rentang, diperlukan scope <b>yt-analytics.readonly</b> — otorisasi ulang setelah Dante menambahkannya.</p></div>
+    <div class="panel"><h3>Video berikutnya (ide generate)</h3>
+      <label class="field">Ide video <input type="text" id="next-idea" placeholder="cth: Kucing kejar kupu-kupu"></label>
+      <label class="field">Tema <select id="next-theme"><option value="acak">Acak</option><option value="hewan">🐾 Hewan</option><option value="misteri">👻 Misteri</option></select></label>
+      <p class="dim" style="font-size:12px">Aktif: <span id="next-active-text">—</span></p>
+      <div style="display:flex;gap:8px;margin-top:8px"><button class="btn-primary" id="btn-next-save">Simpan</button><button class="btn-ghost" id="btn-next-copy">📋 Salin</button></div></div>
+    <div class="panel"><h3>Jadwal &amp; tema</h3>
       <label class="field">Jam rilis default <input type="time" id="set-time" value="19:00"></label>
       <label class="check"><input type="checkbox" id="set-auto" checked> Generate otomatis tiap hari</label>
       <label class="check"><input type="checkbox" id="theme-hewan" checked> 🐾 Hewan</label>
@@ -209,6 +249,19 @@
     <label class="field">Hashtag <input type="text" id="f-tags" placeholder="#shorts #cctv ..."></label>
     <label class="field">Jadwal rilis <input type="datetime-local" id="f-sched"></label>
     <div class="modal-actions"><button class="btn-ghost" id="modal-cancel">Batal</button><button class="btn-primary" id="modal-save">Simpan</button></div>
+  </div>
+</div>
+
+<div class="modal-back" id="chan-modal-back" hidden>
+  <div class="modal">
+    <h3 id="chan-modal-title">Tambah Channel</h3>
+    <label class="field">Channel ID (UC...) <input type="text" id="cm-id" placeholder="UCxxxxxxxxxxxxxxxxxxxxxx"></label>
+    <label class="field">Nama channel <input type="text" id="cm-name" placeholder="NamaChannel"></label>
+    <label class="field">Handle <input type="text" id="cm-handle" placeholder="@handle"></label>
+    <label class="field">Kategori <input type="text" id="cm-cat" placeholder="Hewan"></label>
+    <label class="field">Catatan <input type="text" id="cm-notes" placeholder="opsional"></label>
+    <label class="check"><input type="checkbox" id="cm-ypp"> Sudah monetisasi (YPP)</label>
+    <div class="modal-actions"><button class="btn-ghost" id="chan-modal-cancel">Batal</button><button class="btn-primary" id="chan-modal-save">Simpan</button></div>
   </div>
 </div>
 

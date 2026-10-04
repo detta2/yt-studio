@@ -20,8 +20,8 @@ function loadLive(){
       " ("+d.channel.subs+" subs) · sinkron "+esc(d.synced_at||"");
     $("btn-yt-connect").textContent="🔄 Hubungkan ulang";
     renderDash();
-    if(!$("view-analytics").hidden)renderAnalytics();
-    if(!$("view-comments").hidden)renderComments();
+    var va=$("view-analytics");if(va&&!va.hidden)renderAnalytics();
+    var vc=$("view-comments");if(vc&&!vc.hidden)renderComments();
   }).catch(function(){});
 }
 
@@ -55,6 +55,8 @@ document.querySelectorAll(".nav-item").forEach(function(b){
     var vw=b.dataset.view;
     $("view-"+vw).classList.add("active");
     $("sidebar").classList.remove("open");
+    if(vw==="monitor")renderMonitor();
+    if(vw==="chanalytics")renderChAnalytics();
     if(vw==="dash")renderDash();
     if(vw==="content")renderQueue();
     if(vw==="calendar")renderCal();
@@ -406,7 +408,7 @@ $("btn-wipe").addEventListener("click",function(){
 /* ---------- YouTube connect (Fase 2) ---------- */
 var YT_CLIENT_ID="255111005069-d6cd0of1heps3qsjt1ok0ogvongnsr40.apps.googleusercontent.com";
 var YT_REDIRECT="http://127.0.0.1:8080";
-var YT_SCOPES=["https://www.googleapis.com/auth/youtube.upload","https://www.googleapis.com/auth/youtube.readonly","https://www.googleapis.com/auth/youtube.force-ssl"].join(" ");
+var YT_SCOPES=["https://www.googleapis.com/auth/youtube.upload","https://www.googleapis.com/auth/youtube.readonly","https://www.googleapis.com/auth/youtube.force-ssl","https://www.googleapis.com/auth/yt-analytics.readonly"].join(" ");
 $("btn-yt-connect").addEventListener("click",function(){
   var u="https://accounts.google.com/o/oauth2/v2/auth?"+
     "client_id="+encodeURIComponent(YT_CLIENT_ID)+
@@ -658,4 +660,221 @@ function renderDante(){
     v.innerHTML=h;
   }).catch(function(){v.innerHTML='<div class="st-empty">'+sic(IC.film)+'<h3>Gagal memuat data</h3><p>Tidak bisa membaca dante.json.</p></div>'});
 }
+/* ================= MONITOR (multi-channel monetization tracker) ================= */
+var PF=null;
+var PF_LS="ytmonitor_local_v1";
+var monFilter="all",monQ="",monCat="all",monSort="near";
+var caChanId=null,caRange="28";
+var MON_MAX=100;
+
+function pfLocal(){try{return JSON.parse(localStorage.getItem(PF_LS))||{channels:[],hours:{}}}catch(e){return{channels:[],hours:{}}}}
+function pfLocalSave(d){try{localStorage.setItem(PF_LS,JSON.stringify(d))}catch(e){}}
+function allChannels(){
+  var base=PF&&PF.channels?PF.channels.map(function(c){var n={};for(var k in c)n[k]=c[k];return n}):[];
+  var loc=pfLocal();
+  (loc.channels||[]).forEach(function(c){base.push(c)});
+  base.forEach(function(c){if(loc.hours&&loc.hours[c.id]!=null){c.watch_hours_365=+loc.hours[c.id];c.watch_hours_manual=true}});
+  return base;
+}
+function chStatus(c){
+  if(c.ypp)return"monet";
+  var h=+c.watch_hours_365||0,s=+c.subs||0;
+  if(h>=4000&&s>=1000)return"ready";
+  if(h/4000>=0.7)return"otw";
+  return"growth";
+}
+var ST_LABEL={ready:["⭐ SIAP PENGAJUAN","ready"],monet:["💰 SUDAH MONET","monet"],otw:["📈 OTW MONET","otw"],growth:["🌱 PERTUMBUHAN","growth"]};
+function fmtJam(h){return(+h||0).toLocaleString("id-ID",{minimumFractionDigits:1,maximumFractionDigits:1})}
+function fmtPct(h){return((+h||0)/4000*100).toLocaleString("id-ID",{minimumFractionDigits:1,maximumFractionDigits:1})+"%"}
+function fmtDateID(s){if(!s)return"—";var p=String(s).slice(0,10).split("-");if(p.length<3)return s;var d=new Date(+p[0],+p[1]-1,+p[2]);return d.toLocaleDateString("id-ID",{day:"numeric",month:"short",year:"numeric"})}
+
+function loadPortfolio(cb){
+  fetch("portfolio.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():null}).then(function(d){
+    if(d&&d.channels)PF=d;
+    if(cb)cb();
+  }).catch(function(){if(cb)cb()});
+}
+
+function renderMonitor(){
+  var grid=$("chan-grid");if(!grid)return;
+  var chs=allChannels();
+  var counts={all:chs.length,ready:0,monet:0,otw:0,growth:0},totalH=0;
+  chs.forEach(function(c){counts[chStatus(c)]++;totalH+=+c.watch_hours_365||0});
+  $("m-total").textContent=counts.all;
+  $("m-ready").textContent=counts.ready;
+  $("m-monet").textContent=counts.monet;
+  $("m-otw").textContent=counts.otw;
+  $("c-all").textContent=counts.all;$("c-ready").textContent=counts.ready;
+  $("c-monet").textContent=counts.monet;$("c-otw").textContent=counts.otw;$("c-growth").textContent=counts.growth;
+  $("m-hours").textContent=fmtJam(totalH)+" Jam";
+  $("top-chan-label").textContent=counts.all+"/"+MON_MAX+" Channel";
+  $("top-chan-bar").style.width=Math.min(100,counts.all/MON_MAX*100)+"%";
+  $("mon-synced").textContent=PF&&PF.updated_at?("Sinkron terakhir: "+PF.updated_at+" · jam tayang manual bisa diupdate via tombol \"Update Jam\""):"";
+  /* spotlight: channel non-monet terdekat */
+  var cands=chs.filter(function(c){return chStatus(c)!=="monet"}).sort(function(a,b){return(+b.watch_hours_365||0)-(+a.watch_hours_365||0)});
+  var sp=$("spotlight");
+  if(cands.length){
+    var c=cands[0],h=+c.watch_hours_365||0,kurang=Math.max(0,4000-h),laju=+c.laju_per_hari||0;
+    var est=laju>0?("Estimasi tercapai dalam ~"+Math.ceil(kurang/laju)+" hari"):"Isi laju/hari untuk estimasi";
+    $("sp-title").innerHTML="🏆 "+esc(c.name)+" — <b>Tinggal "+fmtJam(kurang)+" Jam Lagi!</b>";
+    $("sp-sub").textContent=fmtJam(h)+" / 4.000 Jam Tayang (365d: "+fmtPct(h)+") • "+(+c.subs||0).toLocaleString("id-ID")+" Subs • "+est;
+    sp.hidden=false;
+    sp.dataset.cid=c.id;
+  }else sp.hidden=true;
+  /* kategori dropdown */
+  var cats={};chs.forEach(function(c){if(c.category)cats[c.category]=1});
+  var sel=$("mon-cat"),cur=sel.value||"all";
+  sel.innerHTML='<option value="all">Semua Kategori</option>'+Object.keys(cats).sort().map(function(k){return'<option value="'+esc(k)+'"'+(k===cur?" selected":"")+'>'+esc(k)+"</option>"}).join("");
+  if(cur!=="all"&&!cats[cur])cur="all";
+  sel.value=cur;monCat=cur;
+  /* filter + search + sort */
+  var q=(monQ||"").toLowerCase();
+  var list=chs.filter(function(c){
+    if(monFilter!=="all"&&chStatus(c)!==monFilter)return false;
+    if(monCat!=="all"&&c.category!==monCat)return false;
+    if(q){var hay=((c.name||"")+" "+(c.handle||"")+" "+(c.notes||"")).toLowerCase();if(hay.indexOf(q)<0)return false}
+    return true;
+  });
+  list.sort(function(a,b){
+    if(monSort==="subs")return(+b.subs||0)-(+a.subs||0);
+    if(monSort==="views")return(+b.views||0)-(+a.views||0);
+    if(monSort==="hours")return(+b.watch_hours_365||0)-(+a.watch_hours_365||0);
+    if(monSort==="name")return String(a.name).localeCompare(String(b.name));
+    return(+b.watch_hours_365||0)-(+a.watch_hours_365||0);
+  });
+  $("chan-empty").hidden=list.length>0;
+  grid.innerHTML="";
+  list.forEach(function(c){
+    var st=chStatus(c),lbl=ST_LABEL[st],h=+c.watch_hours_365||0,pct=Math.min(100,h/4000*100);
+    var spct=Math.min(100,(+c.subs||0)/1000*100);
+    var kurang=Math.max(0,4000-h);
+    var el=document.createElement("div");
+    el.className="chan-card st-"+st;
+    el.innerHTML=
+      '<div class="ch-head"><div><div class="ch-name">'+esc(c.name)+'</div><div class="ch-handle">'+esc(c.handle||"")+(c.id?' · <span style="font-size:11px">'+esc(c.id.slice(0,8))+"…</span>":"")+'</div></div><span class="ch-badge '+lbl[1]+'">'+lbl[0]+'</span></div>'
+      +'<div class="ch-tags">'+(c.category?'<span class="ch-tag">'+esc(c.category)+"</span>":"")+(c.oauth?'<span class="oauth-tag">🟢 OAuth 365h</span>':'<span class="ch-tag">✋ Manual</span>')+(c.watch_hours_manual?'<span class="ch-tag">⌨️ jam manual</span>':"")+'</div>'
+      +'<div class="ch-stats"><div class="ch-stat"><div class="v">'+(+c.videos||0)+'</div><div class="l">VIDEO</div></div>'
+      +'<div class="ch-stat"><div class="v">'+fmtN(+c.views||0)+'</div><div class="l">VIEWS</div></div>'
+      +'<div class="ch-stat"><div class="v">+'+(+c.laju_per_hari||0)+'j</div><div class="l">LAJU/HARI</div></div></div>'
+      +'<div class="prog-row"><div class="prog-label"><span>🕐 Jam Tayang (365 Hari)</span><b>'+fmtJam(h)+' / 4.000 Jam</b></div>'
+      +'<div class="prog-bar"><i class="prog-fill" style="width:'+pct+'%"></i></div>'
+      +'<div class="prog-note"><span>'+(kurang>0?("Kurang "+fmtJam(kurang)+" jam lagi"):"Target 4.000 Jam Tercapai")+'</span><span>'+fmtPct(h)+'</span></div></div>'
+      +'<div class="prog-row"><div class="prog-label"><span>👤 Subscribers</span><b>'+(+c.subs||0).toLocaleString("id-ID")+' / 1.000 Subs</b></div>'
+      +'<div class="prog-bar"><i class="prog-fill blue" style="width:'+spct+'%"></i></div></div>'
+      +'<div class="ch-actions"><button class="btn-ghost" data-act="ana">📈 Analytics</button><button class="btn-ghost" data-act="jam">🕐 Update Jam</button></div>';
+    el.querySelector('[data-act="ana"]').addEventListener("click",function(){caChanId=c.id;switchView("chanalytics")});
+    el.querySelector('[data-act="jam"]').addEventListener("click",function(){updateJam(c)});
+    grid.appendChild(el);
+  });
+}
+function switchView(vw){
+  document.querySelectorAll(".nav-item").forEach(function(x){x.classList.toggle("active",x.dataset.view===vw)});
+  document.querySelectorAll(".view").forEach(function(v){v.classList.remove("active")});
+  $("view-"+vw).classList.add("active");
+  if(vw==="monitor")renderMonitor();
+  if(vw==="chanalytics")renderChAnalytics();
+}
+function updateJam(c){
+  var cur=+c.watch_hours_365||0;
+  var v=prompt("Jam tayang 365 hari untuk \""+c.name+"\" (saat ini "+fmtJam(cur)+"):\n(lihat di YouTube Studio → Analytics → 365 hari)",String(cur));
+  if(v==null)return;
+  v=parseFloat(String(v).replace(",","."));
+  if(isNaN(v)||v<0){alert("Angka tidak valid");return}
+  var loc=pfLocal();loc.hours[c.id]=v;pfLocalSave(loc);
+  renderMonitor();stoToast("Jam tayang "+c.name+" diupdate: "+fmtJam(v));
+}
+function addChannelModal(){
+  $("chan-modal-back").hidden=false;
+  $("cm-id").value="";$("cm-name").value="";$("cm-handle").value="";$("cm-cat").value="";$("cm-notes").value="";$("cm-ypp").checked=false;
+}
+function initMonitor(){
+  document.querySelectorAll("#mon-tabs .ftab").forEach(function(b){
+    b.addEventListener("click",function(){
+      document.querySelectorAll("#mon-tabs .ftab").forEach(function(x){x.classList.remove("active")});
+      b.classList.add("active");monFilter=b.dataset.f;renderMonitor();
+    });
+  });
+  $("mon-q").addEventListener("input",function(e){monQ=e.target.value;renderMonitor()});
+  $("mon-cat").addEventListener("change",function(e){monCat=e.target.value;renderMonitor()});
+  $("mon-sort").addEventListener("change",function(e){monSort=e.target.value;renderMonitor()});
+  $("vt-grid").addEventListener("click",function(){$("chan-grid").classList.remove("list");$("vt-grid").classList.add("active");$("vt-list").classList.remove("active")});
+  $("vt-list").addEventListener("click",function(){$("chan-grid").classList.add("list");$("vt-list").classList.add("active");$("vt-grid").classList.remove("active")});
+  ["btn-add-channel","btn-add-channel2"].forEach(function(id){var b=$(id);if(b)b.addEventListener("click",addChannelModal)});
+  $("chan-modal-cancel").addEventListener("click",function(){$("chan-modal-back").hidden=true});
+  $("chan-modal-back").addEventListener("click",function(e){if(e.target.id==="chan-modal-back")e.target.hidden=true});
+  $("chan-modal-save").addEventListener("click",function(){
+    var id=$("cm-id").value.trim(),name=$("cm-name").value.trim();
+    if(!name){alert("Nama channel wajib diisi");return}
+    var loc=pfLocal();
+    loc.channels.push({id:id||("manual-"+Date.now()),name:name,handle:$("cm-handle").value.trim(),category:$("cm-cat").value.trim()||"Lainnya",
+      notes:$("cm-notes").value.trim(),oauth:false,ypp:$("cm-ypp").checked,subs:0,videos:0,views:0,
+      watch_hours_365:0,watch_hours_manual:true,laju_per_hari:0,last_publish:"",avg_view_duration:"—",ctr:null,scheduled:0,drafts:0,ranges:{},videos_detail:[]});
+    pfLocalSave(loc);$("chan-modal-back").hidden=true;renderMonitor();stoToast("Channel "+name+" ditambahkan");
+  });
+  $("btn-update-jam").addEventListener("click",function(){
+    var cid=$("spotlight").dataset.cid;if(!cid)return;
+    var c=null;allChannels().forEach(function(x){if(x.id===cid)c=x});
+    if(c)updateJam(c);
+  });
+  $("btn-lihat-syarat").addEventListener("click",function(){
+    alert("Syarat monetisasi YouTube (YPP):\n\n1. 1.000 subscriber\n2. Salah satu:\n   • 4.000 jam tayang publik valid dalam 365 hari, ATAU\n   • 10 juta views Shorts valid dalam 90 hari\n3. Patuhi kebijakan monetisasi & tidak ada teguran aktif\n4. Akun AdSense terhubung");
+  });
+  $("btn-sync-all").addEventListener("click",function(){
+    stoToast(PF&&PF.updated_at?("Terakhir sinkron: "+PF.updated_at+" — sync otomatis tiap jam 08:16"):"Sync otomatis tiap jam 08:16 via cron");
+  });
+  $("btn-api-oauth").addEventListener("click",function(){
+    alert("API & OAuth:\n\n• Data API v3: subs, views, jumlah video (aktif)\n• Analytics API (yt-analytics.readonly): jam tayang 365 hari & analitik per rentang — BUTUH otorisasi ulang.\n\nCara: Setelan → Hubungkan YouTube → setujui scope baru di tab Google.");
+  });
+}
+
+/* ================= CHANNEL ANALYTICS (per channel, per rentang) ================= */
+var RANGE_LABEL={"7":"Data Analisa 7 Hari Terakhir","28":"Data Analisa 28 Hari Terakhir","90":"Data Analisa 90 Hari Terakhir","365":"Data Analisa 365 Hari Terakhir","life":"Data Analisa Lifetime"};
+function renderChAnalytics(){
+  var sel=$("ca-select");if(!sel)return;
+  var chs=allChannels();
+  if(!chs.length){sel.innerHTML='<option value="">— belum ada channel —</option>';return}
+  if(!caChanId||!chs.some(function(c){return c.id===caChanId}))caChanId=chs[0].id;
+  sel.innerHTML=chs.map(function(c){return'<option value="'+esc(c.id)+'"'+(c.id===caChanId?" selected":"")+'>'+esc(c.name)+"</option>"}).join("");
+  var c=null;chs.forEach(function(x){if(x.id===caChanId)c=x});
+  if(!c)return;
+  $("ca-chan-sub").innerHTML=esc(c.handle||"")+' · <span style="color:#4ade80">Aktif</span>'+(c.notes?(" · "+esc(c.notes)):"");
+  document.querySelectorAll("#ca-ranges button").forEach(function(b){b.classList.toggle("active",b.dataset.r===caRange)});
+  $("ca-range-label").textContent=RANGE_LABEL[caRange]||"";
+  var r=(c.ranges&&c.ranges[caRange])||null;
+  var views,wh,subs;
+  if(caRange==="life"){views=+c.views||0;wh=+c.watch_hours_365||0;subs=+c.subs||0}
+  else if(r){views=r.views;wh=r.watch_hours;subs=r.subs_gained}
+  else{views=null;wh=null;subs=null}
+  $("ca-views").textContent=views==null?"—":fmtN(views);
+  $("ca-hours").textContent=wh==null?"—":fmtJam(wh)+" Jam";
+  $("ca-subs").textContent=subs==null?"—":(subs>0?"+":"")+subs;
+  $("ca-ctr").textContent=c.ctr!=null?(+c.ctr).toFixed(1)+"%":"—";
+  $("ca-avg").textContent=c.avg_view_duration||"—";
+  $("ca-lastpub").textContent=fmtDateID(c.last_publish);
+  $("ca-sched").textContent=c.scheduled||0;
+  $("ca-draft").textContent=c.drafts||0;
+  var tb=$("ca-tbody");tb.innerHTML="";
+  var vids=c.videos_detail&&c.videos_detail.length?c.videos_detail:[];
+  if(!vids.length)tb.innerHTML='<tr><td colspan="6" class="dim">Belum ada data video — sinkronisasi berikutnya akan mengisi otomatis.</td></tr>';
+  vids.forEach(function(v){
+    var tr=document.createElement("tr");
+    tr.innerHTML='<td><div style="font-weight:600;max-width:340px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(v.title)+'</div><div class="dim" style="font-size:11px">ID: '+esc(v.id)+'</div></td>'
+      +'<td><span class="dim">'+esc(v.notices||"Tidak ada")+'</span></td>'
+      +'<td><span class="vis-badge'+(v.visibility==="Pribadi"?" priv":"")+'">'+esc(v.visibility||"Publik")+'</span></td>'
+      +'<td>'+fmtDateID(v.published)+'<div class="dim" style="font-size:11px">Dipublikasikan</div></td>'
+      +'<td style="font-weight:700">'+fmtN(v.views)+'</td>'
+      +'<td>'+(v.comments||0)+'</td>';
+    tb.appendChild(tr);
+  });
+}
+function initChAnalytics(){
+  $("ca-select").addEventListener("change",function(e){caChanId=e.target.value;renderChAnalytics()});
+  document.querySelectorAll("#ca-ranges button").forEach(function(b){
+    b.addEventListener("click",function(){caRange=b.dataset.r;renderChAnalytics()});
+  });
+}
+
+initMonitor();
+initChAnalytics();
+loadPortfolio(function(){renderMonitor()});
 })();

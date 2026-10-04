@@ -1,0 +1,91 @@
+{
+ "channels": [
+  {
+   "avg_view_duration": "5:11",
+   "category": "Hewan",
+   "ctr": null,
+   "drafts": 0,
+   "handle": "@juanchoxters",
+   "id": "UCsW0LbOMIQis9sgamX_ZtDw",
+   "laju_per_hari": 25,
+   "last_publish": "2026-10-04",
+   "name": "JuanChoxters",
+   "notes": "Shorts CCTV hewan — 2 video/hari · rentang 7/28/90d = estimasi, akurat setelah otorisasi Analytics API",
+   "oauth": true,
+   "ranges": {
+    "7": {
+     "views": 4500,
+     "watch_hours": 388.0,
+     "subs_gained": 15
+    },
+    "28": {
+     "views": 18000,
+     "watch_hours": 1550.0,
+     "subs_gained": 60
+    },
+    "90": {
+     "views": 26500,
+     "watch_hours": 2280.0,
+     "subs_gained": 220
+    },
+    "365": {
+     "views": 29449,
+     "watch_hours": 2688.5,
+     "subs_gained": 1000
+    }
+   },
+   "scheduled": 0,
+   "subs": 1000,
+   "videos": 48,
+   "videos_detail": [],
+   "views": 29449,
+   "watch_hours_365": 2688.5,
+   "watch_hours_manual": true,
+   "ypp": false
+  },
+  {
+   "avg_view_duration": "0:00",
+   "category": "Anak",
+   "ctr": null,
+   "drafts": 0,
+   "handle": "@dantekidschannel",
+   "id": "UCz5ALJZFiicp8zoQ72RmjzA",
+   "laju_per_hari": 0,
+   "last_publish": "2026-10-04",
+   "name": "DanteChannel",
+   "notes": "Dongeng anak — 2 video + 2 shorts/hari",
+   "oauth": false,
+   "ranges": {
+    "28": {
+     "subs_gained": 0,
+     "views": 9,
+     "watch_hours": 0.0
+    },
+    "365": {
+     "subs_gained": 0,
+     "views": 9,
+     "watch_hours": 0.0
+    },
+    "7": {
+     "subs_gained": 0,
+     "views": 9,
+     "watch_hours": 0.0
+    },
+    "90": {
+     "subs_gained": 0,
+     "views": 9,
+     "watch_hours": 0.0
+    }
+   },
+   "scheduled": 2,
+   "subs": 0,
+   "videos": 6,
+   "videos_detail": [],
+   "views": 9,
+   "watch_hours_365": 0.0,
+   "watch_hours_manual": true,
+   "ypp": false
+  }
+ ],
+ "updated_at": "04 Okt 2026 12:00 WIB"
+}

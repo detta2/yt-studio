@@ -31,6 +31,9 @@ SCOPES = [
     "https://www.googleapis.com/auth/youtube.upload",
     "https://www.googleapis.com/auth/youtube.readonly",
     "https://www.googleapis.com/auth/youtube.force-ssl",
+    # untuk jam tayang 365 hari / analitik per rentang (monitor_sync.py).
+    # CATATAN: menambah scope = user harus otorisasi ulang via auth.py url.
+    "https://www.googleapis.com/auth/yt-analytics.readonly",
 ]
 REDIRECT_URI = "http://127.0.0.1:8080"
 
