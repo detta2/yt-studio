@@ -31,13 +31,23 @@
   "views_7d": 9,
   "watch_hours": 0.0
  },
- "updated_at": "2026-10-04T12:01:44",
+ "updated_at": "2026-10-04T13:11:56",
  "stats": {
-  "total": 6,
+  "total": 7,
   "tayang": 6,
-  "terjadwal": 0
+  "terjadwal": 1
  },
  "videos": [
+  {
+   "date": "2026-10-04",
+   "slot": "shorts-malam",
+   "story_id": "bobo-madu",
+   "title": "Bobo Dikejar Lebah Marah! 🐻🐝 #shorts",
+   "file": "2026-10-04-shorts-malam-bobo-madu.mp4",
+   "status": "terjadwal",
+   "youtube_url": null,
+   "uploaded_at": null
+  },
   {
    "date": "2026-10-04",
    "slot": "malam",
