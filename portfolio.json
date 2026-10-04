@@ -36,11 +36,57 @@
    },
    "scheduled": 0,
    "subs": 1000,
-   "videos": 48,
-   "videos_detail": [],
+   "videos": 49,
+   "videos_detail": [
+    {
+     "id": "k9gfV1i5Af4",
+     "title": "KETANGKEP CAMERA TRAP! Anak Monyet Jatuh Dahan Patah 😱 #shorts",
+     "published": "2026-10-04",
+     "views": 0,
+     "comments": 0,
+     "visibility": "Publik",
+     "notices": "Tidak ada"
+    },
+    {
+     "id": "J3dDVSPom2M",
+     "title": "KETANGKEP CCTV! Musang Kejar Ayam Sampai Kursi Terguling 😱 #shorts",
+     "published": "2026-10-03",
+     "views": 1174,
+     "comments": 0,
+     "visibility": "Publik",
+     "notices": "Tidak ada"
+    },
+    {
+     "id": "N0b10FPTLiM",
+     "title": "KETANGKEP CAMERA TRAP! Rusa Kaget Sampai Lompat 😱 #shorts",
+     "published": "2026-10-03",
+     "views": 1189,
+     "comments": 0,
+     "visibility": "Publik",
+     "notices": "Tidak ada"
+    },
+    {
+     "id": "h6IbXQGUAuo",
+     "title": "KETANGKEP CCTV! Kucing Senggol Pot Sampai Jatuh 😱 #shorts",
+     "published": "2026-10-02",
+     "views": 1636,
+     "comments": 1,
+     "visibility": "Publik",
+     "notices": "Tidak ada"
+    },
+    {
+     "id": "QvJO25jenuI",
+     "title": "Kucing Nyelinap Masuk Pekarangan Jam 2 Pagi 😱  #shorts #cctv #kucing #ketangkepcctv #povcctv #fyp",
+     "published": "2026-10-01",
+     "views": 1381,
+     "comments": 0,
+     "visibility": "Publik",
+     "notices": "Tidak ada"
+    }
+   ],
    "views": 29449,
    "watch_hours_365": 2688.5,
-   "watch_hours_manual": true,
+   "watch_hours_manual": false,
    "ypp": false
   },
   {
@@ -87,5 +133,5 @@
    "ypp": false
   }
  ],
- "updated_at": "04 Okt 2026 12:00 WIB"
+ "updated_at": "04 Oct 2026 17:09 WIB"
 }
