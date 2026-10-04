@@ -170,7 +170,9 @@ function drawBars(){
   var bw=W/(pub.length*2);
   pub.forEach(function(v,i){
     var s=statsFor(v),h=(s.views/max)*(H-60),x=i*2*bw+bw/2;
-    ctx.fillStyle="#8b7cf6";ctx.beginPath();ctx.roundRect(x,H-30-h,bw,h,8);ctx.fill();
+    ctx.fillStyle="#8b7cf6";
+    if(ctx.roundRect){ctx.beginPath();ctx.roundRect(x,H-30-h,bw,h,8);ctx.fill()}
+    else ctx.fillRect(x,H-30-h,bw,h);
     ctx.fillStyle="#aaa";ctx.font="20px sans-serif";ctx.fillText("V"+(i+1),x+bw/2-14,H-8);
   });
 }
@@ -333,7 +335,9 @@ function drawAge(){
   var bw=W/(ages.length*2);
   ages.forEach(function(a,i){
     var h=(a[1]/40)*(H-70),x=i*2*bw+bw/2;
-    ctx.fillStyle="#8b7cf6";ctx.beginPath();ctx.roundRect(x,H-50-h,bw,h,8);ctx.fill();
+    ctx.fillStyle="#8b7cf6";
+    if(ctx.roundRect){ctx.beginPath();ctx.roundRect(x,H-50-h,bw,h,8);ctx.fill()}
+    else ctx.fillRect(x,H-50-h,bw,h);
     ctx.fillStyle="#aaa";ctx.font="20px sans-serif";ctx.fillText(a[1]+"%",x+bw/2-16,H-28);ctx.fillText(a[0],x+bw/2-30,H-6);
   });
 }
@@ -628,7 +632,7 @@ function wizStep3(v,d){
   });
 }
 
-renderDash();
+try{renderDash()}catch(e){if(window.console)console.log("dash skip:",e)}
 /* ---------- DanteKids channel (dante.json, ditulis video_log.py) ---------- */
 var DANTE=null;
 function danteDate(s){if(!s)return"—";var p=s.split("-");var d=new Date(+p[0],+p[1]-1,+p[2]);return d.toLocaleDateString("id-ID",{day:"numeric",month:"short"})}
