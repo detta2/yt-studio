@@ -31,11 +31,11 @@
   "views_7d": 9,
   "watch_hours": 0.0
  },
- "updated_at": "2026-10-04T00:00:21",
+ "updated_at": "2026-10-04T05:10:38",
  "stats": {
-  "total": 5,
+  "total": 6,
   "tayang": 4,
-  "terjadwal": 1
+  "terjadwal": 2
  },
  "videos": [
   {
@@ -44,6 +44,16 @@
    "story_id": "timun-mas",
    "title": "Timun Mas 🌱👧 | Dongeng Anak Bergambar",
    "file": "2026-10-04-malam-timun-mas.mp4",
+   "status": "terjadwal",
+   "youtube_url": null,
+   "uploaded_at": null
+  },
+  {
+   "date": "2026-10-04",
+   "slot": "shorts-siang",
+   "story_id": "bebek-berani",
+   "title": "Beni si Bebek Akhirnya Berani Berenang! 🦆 #shorts",
+   "file": "2026-10-04-shorts-siang-bebek-berani.mp4",
    "status": "terjadwal",
    "youtube_url": null,
    "uploaded_at": null
