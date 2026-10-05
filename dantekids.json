@@ -5,13 +5,23 @@
   "url": "https://www.youtube.com/channel/UCcECTOy0ONVekvgheauUGFg",
   "channel_id": "UCcECTOy0ONVekvgheauUGFg"
  },
- "updated_at": "2026-10-05T08:59:49",
+ "updated_at": "2026-10-05T22:31:56",
  "stats": {
-  "total": 1,
+  "total": 2,
   "tayang": 1,
-  "terjadwal": 0
+  "terjadwal": 1
  },
  "videos": [
+  {
+   "date": "2026-10-06",
+   "slot": "harian",
+   "item_id": "balonku",
+   "title": "Balonku Ada Lima",
+   "file": "2026-10-06-harian-balonku.mp4",
+   "status": "terjadwal",
+   "youtube_url": null,
+   "uploaded_at": null
+  },
   {
    "date": "2026-10-05",
    "slot": "harian",
