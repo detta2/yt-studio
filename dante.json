@@ -36,13 +36,23 @@
    }
   ]
  },
- "updated_at": "2026-10-05T15:23:46",
+ "updated_at": "2026-10-05T22:38:04",
  "stats": {
-  "total": 11,
+  "total": 12,
   "tayang": 11,
-  "terjadwal": 0
+  "terjadwal": 1
  },
  "videos": [
+  {
+   "date": "2026-10-06",
+   "slot": "pagi",
+   "story_id": "bawang-merah-putih",
+   "title": "Bawang Merah Bawang Putih 🧄👧 | Dongeng Anak Bergambar",
+   "file": "2026-10-06-pagi-bawang-merah-putih.mp4",
+   "status": "terjadwal",
+   "youtube_url": null,
+   "uploaded_at": null
+  },
   {
    "date": "2026-10-05",
    "slot": "shorts-malam",
