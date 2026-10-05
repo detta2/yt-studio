@@ -36,11 +36,11 @@
    }
   ]
  },
- "updated_at": "2026-10-05T13:18:26",
+ "updated_at": "2026-10-05T13:29:16",
  "stats": {
   "total": 11,
-  "tayang": 10,
-  "terjadwal": 1
+  "tayang": 11,
+  "terjadwal": 0
  },
  "videos": [
   {
@@ -49,9 +49,9 @@
    "story_id": "ulat-semut",
    "title": "Jembatan Semut Menyelamatkan Ulu si Ulat Bulu! #shorts",
    "file": "2026-10-05-shorts-malam-ulat-semut.mp4",
-   "status": "terjadwal",
-   "youtube_url": null,
-   "uploaded_at": null
+   "status": "tayang",
+   "youtube_url": "https://www.youtube.com/shorts/G_xgH7ZWSV8",
+   "uploaded_at": "2026-10-05T13:29:16"
   },
   {
    "date": "2026-10-05",
