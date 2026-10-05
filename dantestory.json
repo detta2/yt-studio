@@ -5,11 +5,11 @@
   "url": "https://www.youtube.com/channel/UCFBqJ7_lzbGktuFMdsbyXHg",
   "channel_id": "UCFBqJ7_lzbGktuFMdsbyXHg"
  },
- "updated_at": "2026-10-04T21:01:14",
+ "updated_at": "2026-10-05T02:59:55",
  "stats": {
   "total": 1,
-  "tayang": 0,
-  "terjadwal": 1
+  "tayang": 1,
+  "terjadwal": 0
  },
  "videos": [
   {
@@ -18,9 +18,9 @@
    "item_id": "gajah-mada",
    "title": "Gajah Mada dan Sumpah Palapa",
    "file": "2026-10-05-harian-gajah-mada.mp4",
-   "status": "terjadwal",
-   "youtube_url": null,
-   "uploaded_at": null
+   "status": "tayang",
+   "youtube_url": "https://www.youtube.com/watch?v=-ZkQLM60AUc",
+   "uploaded_at": "2026-10-05T02:59:55"
   }
  ]
 }
