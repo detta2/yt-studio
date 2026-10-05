@@ -36,11 +36,11 @@
    }
   ]
  },
- "updated_at": "2026-10-05T05:16:43",
+ "updated_at": "2026-10-05T05:26:56",
  "stats": {
   "total": 10,
-  "tayang": 8,
-  "terjadwal": 2
+  "tayang": 9,
+  "terjadwal": 1
  },
  "videos": [
   {
@@ -59,9 +59,9 @@
    "story_id": "gigi-gajah",
    "title": "Gigi si Gajah Belajar Tidak Sombong! 🐘 #shorts",
    "file": "2026-10-05-shorts-siang-gigi-gajah.mp4",
-   "status": "terjadwal",
-   "youtube_url": null,
-   "uploaded_at": null
+   "status": "tayang",
+   "youtube_url": "https://www.youtube.com/shorts/kTQQRYiE3hc",
+   "uploaded_at": "2026-10-05T05:26:56"
   },
   {
    "date": "2026-10-05",
