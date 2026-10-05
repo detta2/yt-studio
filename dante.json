@@ -6,37 +6,37 @@
   "channel_id": "UCz5ALJZFiicp8zoQ72RmjzA"
  },
  "channel_stats": {
-  "date": "2026-10-04",
-  "note": "Hari ke-2 tayang. views_7d rentang Studio 27 Sep–3 Okt; views_24h tidak ditampilkan (hanya Last 48 hours). Shorts 'Beni si Bebek' (malam) raih 2 views — traksi organik pertama.",
+  "date": "2026-10-05",
+  "note": "Hari ke-3 tayang. Semua 6 video long-form tetap 0 views. Satu-satunya traksi dari Shorts: 'Beni si Bebek Akhirnya Berani Berenang!' (shorts 2026-10-04) 2 views dan 'Gigi si Gajah Belajar Tidak Sombong!' (shorts siang hari ini) 1 view dalam 48 jam terakhir. Views_48h turun dari 9 ke 3 (rolling window, tidak sebanding apple-to-apple). Watch time 7d tetap 0.0 jam; subscriber tetap 0.",
   "subs": 0,
-  "views_7d": 7,
+  "views_7d": 10,
   "views_24h": null,
-  "views_48h": 9,
+  "views_48h": 3,
   "watch_hours": 0.0,
   "videos": [
    {
     "slot": "pagi",
-    "title": "Singa dan Tikus 🦁🐭 | Dongeng Anak Bergambar",
+    "title": "Kancil dan Harimau 🦌🐯 | Dongeng Anak Bergambar",
     "views": 0
    },
    {
     "slot": "malam",
-    "title": "Timun Mas 🌱👧 | Dongeng Anak Bergambar",
+    "title": "Bebek Buruk Rupa 🦆🦢 | Dongeng Anak Bergambar",
     "views": 0
    },
    {
     "slot": "shorts-siang",
-    "title": "Bobo Dikejar Lebah Marah! 🐻🐝 #shorts",
-    "views": 0
+    "title": "Gigi si Gajah Belajar Tidak Sombong! 🐘 #shorts",
+    "views": 1
    },
    {
     "slot": "shorts-malam",
-    "title": "Beni si Bebek Akhirnya Berani Berenang! 🦆 #shorts",
-    "views": 2
+    "title": "Jembatan Semut Menyelamatkan Ulu si Ulat Bulu! #shorts",
+    "views": null
    }
   ]
  },
- "updated_at": "2026-10-05T13:29:16",
+ "updated_at": "2026-10-05T15:23:46",
  "stats": {
   "total": 11,
   "tayang": 11,
