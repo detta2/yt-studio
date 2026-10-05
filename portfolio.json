@@ -36,13 +36,22 @@
    },
    "scheduled": 0,
    "subs": 1000,
-   "videos": 49,
+   "videos": 50,
    "videos_detail": [
+    {
+     "id": "mdbw7OxUMH8",
+     "title": "KETANGKEP CCTV! Anjing Gonggong Sambil Senggol Ember 😱 #shorts",
+     "published": "2026-10-04",
+     "views": 1382,
+     "comments": 0,
+     "visibility": "Publik",
+     "notices": "Tidak ada"
+    },
     {
      "id": "k9gfV1i5Af4",
      "title": "KETANGKEP CAMERA TRAP! Anak Monyet Jatuh Dahan Patah 😱 #shorts",
      "published": "2026-10-04",
-     "views": 0,
+     "views": 7,
      "comments": 0,
      "visibility": "Publik",
      "notices": "Tidak ada"
@@ -51,7 +60,7 @@
      "id": "J3dDVSPom2M",
      "title": "KETANGKEP CCTV! Musang Kejar Ayam Sampai Kursi Terguling 😱 #shorts",
      "published": "2026-10-03",
-     "views": 1174,
+     "views": 1236,
      "comments": 0,
      "visibility": "Publik",
      "notices": "Tidak ada"
@@ -60,7 +69,7 @@
      "id": "N0b10FPTLiM",
      "title": "KETANGKEP CAMERA TRAP! Rusa Kaget Sampai Lompat 😱 #shorts",
      "published": "2026-10-03",
-     "views": 1189,
+     "views": 1184,
      "comments": 0,
      "visibility": "Publik",
      "notices": "Tidak ada"
@@ -69,22 +78,13 @@
      "id": "h6IbXQGUAuo",
      "title": "KETANGKEP CCTV! Kucing Senggol Pot Sampai Jatuh 😱 #shorts",
      "published": "2026-10-02",
-     "views": 1636,
+     "views": 1677,
      "comments": 1,
-     "visibility": "Publik",
-     "notices": "Tidak ada"
-    },
-    {
-     "id": "QvJO25jenuI",
-     "title": "Kucing Nyelinap Masuk Pekarangan Jam 2 Pagi 😱  #shorts #cctv #kucing #ketangkepcctv #povcctv #fyp",
-     "published": "2026-10-01",
-     "views": 1381,
-     "comments": 0,
      "visibility": "Publik",
      "notices": "Tidak ada"
     }
    ],
-   "views": 29449,
+   "views": 31697,
    "watch_hours_365": 2688.5,
    "watch_hours_manual": false,
    "ypp": false
@@ -262,5 +262,5 @@
    "notes": "Lagu anak karaoke (melodi sintesis lokal) — 1 video/hari jam 16:00"
   }
  ],
- "updated_at": "04 Oct 2026 12:58 WIB"
+ "updated_at": "05 Oct 2026 08:16 WIB"
 }
