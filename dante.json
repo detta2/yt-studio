@@ -36,11 +36,11 @@
    }
   ]
  },
- "updated_at": "2026-10-04T22:51:05",
+ "updated_at": "2026-10-05T00:00:32",
  "stats": {
   "total": 9,
-  "tayang": 7,
-  "terjadwal": 2
+  "tayang": 8,
+  "terjadwal": 1
  },
  "videos": [
   {
@@ -59,9 +59,9 @@
    "story_id": "kancil-harimau",
    "title": "Kancil dan Harimau",
    "file": "2026-10-05-pagi-kancil-harimau.mp4",
-   "status": "terjadwal",
-   "youtube_url": null,
-   "uploaded_at": null
+   "status": "tayang",
+   "youtube_url": "https://www.youtube.com/watch?v=UXvGoU42hZc",
+   "uploaded_at": "2026-10-05T00:00:32"
   },
   {
    "date": "2026-10-04",
