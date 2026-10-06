@@ -712,16 +712,17 @@ function allChannels(){
   base.forEach(function(c){if(loc.hours&&loc.hours[c.id]!=null){c.watch_hours_365=+loc.hours[c.id];c.watch_hours_manual=true}});
   return base;
 }
+var YPP_HOURS=8000;/* syarat YPP baru efektif 1 Feb 2027: 8.000 jam/365d atau 20 jt views Shorts/90d (subs tetap 1.000) */
 function chStatus(c){
   if(c.ypp)return"monet";
   var h=+c.watch_hours_365||0,s=+c.subs||0;
-  if(h>=4000&&s>=1000)return"ready";
-  if(h/4000>=0.7)return"otw";
+  if(h>=YPP_HOURS&&s>=1000)return"ready";
+  if(h/YPP_HOURS>=0.7)return"otw";
   return"growth";
 }
 var ST_LABEL={ready:["⭐ SIAP PENGAJUAN","ready"],monet:["💰 SUDAH MONET","monet"],otw:["📈 OTW MONET","otw"],growth:["🌱 PERTUMBUHAN","growth"]};
 function fmtJam(h){return(+h||0).toLocaleString("id-ID",{minimumFractionDigits:1,maximumFractionDigits:1})}
-function fmtPct(h){return((+h||0)/4000*100).toLocaleString("id-ID",{minimumFractionDigits:1,maximumFractionDigits:1})+"%"}
+function fmtPct(h){return((+h||0)/YPP_HOURS*100).toLocaleString("id-ID",{minimumFractionDigits:1,maximumFractionDigits:1})+"%"}
 function fmtDateID(s){if(!s)return"—";var p=String(s).slice(0,10).split("-");if(p.length<3)return s;var d=new Date(+p[0],+p[1]-1,+p[2]);return d.toLocaleDateString("id-ID",{day:"numeric",month:"short",year:"numeric"})}
 
 function loadPortfolio(cb){
@@ -750,10 +751,10 @@ function renderMonitor(){
   var cands=chs.filter(function(c){return chStatus(c)!=="monet"}).sort(function(a,b){return(+b.watch_hours_365||0)-(+a.watch_hours_365||0)});
   var sp=$("spotlight");
   if(cands.length){
-    var c=cands[0],h=+c.watch_hours_365||0,kurang=Math.max(0,4000-h),laju=+c.laju_per_hari||0;
+    var c=cands[0],h=+c.watch_hours_365||0,kurang=Math.max(0,YPP_HOURS-h),laju=+c.laju_per_hari||0;
     var est=laju>0?("Estimasi tercapai dalam ~"+Math.ceil(kurang/laju)+" hari"):"Isi laju/hari untuk estimasi";
     $("sp-title").innerHTML="🏆 "+esc(c.name)+" — <b>Tinggal "+fmtJam(kurang)+" Jam Lagi!</b>";
-    $("sp-sub").textContent=fmtJam(h)+" / 4.000 Jam Tayang (365d: "+fmtPct(h)+") • "+(+c.subs||0).toLocaleString("id-ID")+" Subs • "+est;
+    $("sp-sub").textContent=fmtJam(h)+" / "+fmtJam(YPP_HOURS)+" Jam Tayang (365d: "+fmtPct(h)+") • "+(+c.subs||0).toLocaleString("id-ID")+" Subs • "+est;
     sp.hidden=false;
     sp.dataset.cid=c.id;
   }else sp.hidden=true;
@@ -781,9 +782,9 @@ function renderMonitor(){
   $("chan-empty").hidden=list.length>0;
   grid.innerHTML="";
   list.forEach(function(c){
-    var st=chStatus(c),lbl=ST_LABEL[st],h=+c.watch_hours_365||0,pct=Math.min(100,h/4000*100);
+    var st=chStatus(c),lbl=ST_LABEL[st],h=+c.watch_hours_365||0,pct=Math.min(100,h/YPP_HOURS*100);
     var spct=Math.min(100,(+c.subs||0)/1000*100);
-    var kurang=Math.max(0,4000-h);
+    var kurang=Math.max(0,YPP_HOURS-h);
     var el=document.createElement("div");
     el.className="chan-card st-"+st;
     el.innerHTML=
@@ -792,9 +793,9 @@ function renderMonitor(){
       +'<div class="ch-stats"><div class="ch-stat"><div class="v">'+(+c.videos||0)+'</div><div class="l">VIDEO</div></div>'
       +'<div class="ch-stat"><div class="v">'+fmtN(+c.views||0)+'</div><div class="l">VIEWS</div></div>'
       +'<div class="ch-stat"><div class="v">+'+(+c.laju_per_hari||0)+'j</div><div class="l">LAJU/HARI</div></div></div>'
-      +'<div class="prog-row"><div class="prog-label"><span>🕐 Jam Tayang (365 Hari)</span><b>'+fmtJam(h)+' / 4.000 Jam</b></div>'
+      +'<div class="prog-row"><div class="prog-label"><span>🕐 Jam Tayang (365 Hari)</span><b>'+fmtJam(h)+' / '+fmtJam(YPP_HOURS)+' Jam</b></div>'
       +'<div class="prog-bar"><i class="prog-fill" style="width:'+pct+'%"></i></div>'
-      +'<div class="prog-note"><span>'+(kurang>0?("Kurang "+fmtJam(kurang)+" jam lagi"):"Target 4.000 Jam Tercapai")+'</span><span>'+fmtPct(h)+'</span></div></div>'
+      +'<div class="prog-note"><span>'+(kurang>0?("Kurang "+fmtJam(kurang)+" jam lagi"):("Target "+fmtJam(YPP_HOURS)+" Jam Tercapai"))+'</span><span>'+fmtPct(h)+'</span></div></div>'
       +'<div class="prog-row"><div class="prog-label"><span>👤 Subscribers</span><b>'+(+c.subs||0).toLocaleString("id-ID")+' / 1.000 Subs</b></div>'
       +'<div class="prog-bar"><i class="prog-fill blue" style="width:'+spct+'%"></i></div></div>'
       +'<div class="ch-actions"><button class="btn-ghost" data-act="ana">📈 Analytics</button><button class="btn-ghost" data-act="jam">🕐 Update Jam</button></div>';
@@ -853,7 +854,7 @@ function initMonitor(){
     if(c)updateJam(c);
   });
   $("btn-lihat-syarat").addEventListener("click",function(){
-    alert("Syarat monetisasi YouTube (YPP):\n\n1. 1.000 subscriber\n2. Salah satu:\n   • 4.000 jam tayang publik valid dalam 365 hari, ATAU\n   • 10 juta views Shorts valid dalam 90 hari\n3. Patuhi kebijakan monetisasi & tidak ada teguran aktif\n4. Akun AdSense terhubung");
+    alert("Syarat monetisasi YouTube (YPP, aturan baru efektif 1 Feb 2027):\n\n1. 1.000 subscriber\n2. Salah satu:\n   • 8.000 jam tayang publik valid dalam 365 hari, ATAU\n   • 20 juta views Shorts valid dalam 90 hari\n3. Patuhi kebijakan monetisasi & tidak ada teguran aktif\n4. Akun AdSense terhubung\n\n(Tier fan-funding 500 subs tidak berubah: 3.000 jam / 3 jt views Shorts)");
   });
   $("btn-sync-all").addEventListener("click",function(){
     stoToast(PF&&PF.updated_at?("Terakhir sinkron: "+PF.updated_at+" — sync otomatis tiap jam 08:16"):"Sync otomatis tiap jam 08:16 via cron");
