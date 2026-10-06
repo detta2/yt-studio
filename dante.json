@@ -36,13 +36,23 @@
    }
   ]
  },
- "updated_at": "2026-10-06T15:07:15",
+ "updated_at": "2026-10-06T23:13:25",
  "stats": {
-  "total": 14,
+  "total": 15,
   "tayang": 14,
-  "terjadwal": 0
+  "terjadwal": 1
  },
  "videos": [
+  {
+   "date": "2026-10-07",
+   "slot": "pagi",
+   "story_id": "keong-mas",
+   "title": "Keong Mas",
+   "file": "2026-10-07-pagi-keong-mas.mp4",
+   "status": "terjadwal",
+   "youtube_url": null,
+   "uploaded_at": null
+  },
   {
    "date": "2026-10-06",
    "slot": "malam",
