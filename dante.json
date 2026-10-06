@@ -36,11 +36,11 @@
    }
   ]
  },
- "updated_at": "2026-10-06T00:01:13",
+ "updated_at": "2026-10-06T05:07:26",
  "stats": {
-  "total": 13,
+  "total": 14,
   "tayang": 12,
-  "terjadwal": 1
+  "terjadwal": 2
  },
  "videos": [
   {
@@ -49,6 +49,16 @@
    "story_id": "malin-kundang",
    "title": "Malin Kundang 🌊🪨 | Dongeng Anak Bergambar",
    "file": "2026-10-06-malam-malin-kundang.mp4",
+   "status": "terjadwal",
+   "youtube_url": null,
+   "uploaded_at": null
+  },
+  {
+   "date": "2026-10-06",
+   "slot": "shorts-siang",
+   "story_id": "gagak-bulu",
+   "title": "Angin Kencang Menerbangkan Bulu Pinjaman Gaga! #shorts",
+   "file": "2026-10-06-shorts-siang-gagak-bulu.mp4",
    "status": "terjadwal",
    "youtube_url": null,
    "uploaded_at": null
