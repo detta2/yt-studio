@@ -36,11 +36,11 @@
    }
   ]
  },
- "updated_at": "2026-10-06T05:07:26",
+ "updated_at": "2026-10-06T05:10:08",
  "stats": {
   "total": 14,
-  "tayang": 12,
-  "terjadwal": 2
+  "tayang": 13,
+  "terjadwal": 1
  },
  "videos": [
   {
@@ -59,9 +59,9 @@
    "story_id": "gagak-bulu",
    "title": "Angin Kencang Menerbangkan Bulu Pinjaman Gaga! #shorts",
    "file": "2026-10-06-shorts-siang-gagak-bulu.mp4",
-   "status": "terjadwal",
-   "youtube_url": null,
-   "uploaded_at": null
+   "status": "tayang",
+   "youtube_url": "https://www.youtube.com/shorts/-JFKx4ban54",
+   "uploaded_at": "2026-10-06T05:10:08"
   },
   {
    "date": "2026-10-06",
