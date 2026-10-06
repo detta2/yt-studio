@@ -36,11 +36,11 @@
    }
   ]
  },
- "updated_at": "2026-10-06T05:10:08",
+ "updated_at": "2026-10-06T12:01:46",
  "stats": {
   "total": 14,
-  "tayang": 13,
-  "terjadwal": 1
+  "tayang": 14,
+  "terjadwal": 0
  },
  "videos": [
   {
@@ -49,9 +49,9 @@
    "story_id": "malin-kundang",
    "title": "Malin Kundang 🌊🪨 | Dongeng Anak Bergambar",
    "file": "2026-10-06-malam-malin-kundang.mp4",
-   "status": "terjadwal",
-   "youtube_url": null,
-   "uploaded_at": null
+   "status": "tayang",
+   "youtube_url": "https://youtu.be/PirICD6uTks",
+   "uploaded_at": "2026-10-06T12:01:46"
   },
   {
    "date": "2026-10-06",
