@@ -6,37 +6,37 @@
   "channel_id": "UCz5ALJZFiicp8zoQ72RmjzA"
  },
  "channel_stats": {
-  "date": "2026-10-05",
-  "note": "Hari ke-3 tayang. Semua 6 video long-form tetap 0 views. Satu-satunya traksi dari Shorts: 'Beni si Bebek Akhirnya Berani Berenang!' (shorts 2026-10-04) 2 views dan 'Gigi si Gajah Belajar Tidak Sombong!' (shorts siang hari ini) 1 view dalam 48 jam terakhir. Views_48h turun dari 9 ke 3 (rolling window, tidak sebanding apple-to-apple). Watch time 7d tetap 0.0 jam; subscriber tetap 0.",
+  "date": "2026-10-06",
+  "note": "Hari ke-4 tayang. Video long-form PERTAMA dapat view: 'Malin Kundang | Dongeng Anak Bergambar' (upload malam ini) 1 view di 48 jam terakhir. Shorts 'Beni si Bebek' 2→3 views, 'Gigi si Gajah' 1→2. views_7d stagnan di 10 (window bergeser). Watch time 7d tetap 0,0 jam; subscriber tetap 0. GAP: shorts-malam (jadwal 20:00 WIB) tidak tercatat di videos.json maupun Studio — upload malam ini gagal/tidak jalan.",
   "subs": 0,
   "views_7d": 10,
   "views_24h": null,
-  "views_48h": 3,
+  "views_48h": 2,
   "watch_hours": 0.0,
   "videos": [
    {
     "slot": "pagi",
-    "title": "Kancil dan Harimau 🦌🐯 | Dongeng Anak Bergambar",
+    "title": "Bawang Merah Bawang Putih | Dongeng Anak Bergambar",
     "views": 0
    },
    {
     "slot": "malam",
-    "title": "Bebek Buruk Rupa 🦆🦢 | Dongeng Anak Bergambar",
-    "views": 0
-   },
-   {
-    "slot": "shorts-siang",
-    "title": "Gigi si Gajah Belajar Tidak Sombong! 🐘 #shorts",
+    "title": "Malin Kundang | Dongeng Anak Bergambar",
     "views": 1
    },
    {
+    "slot": "shorts-siang",
+    "title": "Angin Kencang Menerbangkan Bulu Pinjaman Gaga! #shorts",
+    "views": 0
+   },
+   {
     "slot": "shorts-malam",
-    "title": "Jembatan Semut Menyelamatkan Ulu si Ulat Bulu! #shorts",
+    "title": null,
     "views": null
    }
   ]
  },
- "updated_at": "2026-10-06T12:01:46",
+ "updated_at": "2026-10-06T15:07:15",
  "stats": {
   "total": 14,
   "tayang": 14,
