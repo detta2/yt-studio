@@ -36,11 +36,11 @@
    }
   ]
  },
- "updated_at": "2026-10-07T00:04:32",
+ "updated_at": "2026-10-07T12:01:46",
  "stats": {
   "total": 16,
-  "tayang": 15,
-  "terjadwal": 1
+  "tayang": 16,
+  "terjadwal": 0
  },
  "videos": [
   {
@@ -49,9 +49,9 @@
    "story_id": "semut-belalang",
    "title": "Semut dan Belalang",
    "file": "2026-10-07-malam-semut-belalang.mp4",
-   "status": "terjadwal",
-   "youtube_url": null,
-   "uploaded_at": null
+   "status": "tayang",
+   "youtube_url": "https://youtu.be/Dv9eMBdtTHw",
+   "uploaded_at": "2026-10-07T12:01:46"
   },
   {
    "date": "2026-10-07",
