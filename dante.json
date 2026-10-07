@@ -36,11 +36,11 @@
    }
   ]
  },
- "updated_at": "2026-10-07T13:01:59",
+ "updated_at": "2026-10-07T13:05:05",
  "stats": {
   "total": 17,
-  "tayang": 16,
-  "terjadwal": 1
+  "tayang": 17,
+  "terjadwal": 0
  },
  "videos": [
   {
@@ -49,9 +49,9 @@
    "story_id": "landak",
    "title": "Landak yang Kesepian Menyelamatkan Bola! #shorts",
    "file": "2026-10-07-shorts-malam-landak.mp4",
-   "status": "terjadwal",
-   "youtube_url": null,
-   "uploaded_at": null
+   "status": "tayang",
+   "youtube_url": "https://youtube.com/shorts/q4g9Lo8_Iu8",
+   "uploaded_at": "2026-10-07T13:05:05"
   },
   {
    "date": "2026-10-07",
