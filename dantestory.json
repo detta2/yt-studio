@@ -5,11 +5,11 @@
   "url": "https://www.youtube.com/channel/UCFBqJ7_lzbGktuFMdsbyXHg",
   "channel_id": "UCFBqJ7_lzbGktuFMdsbyXHg"
  },
- "updated_at": "2026-10-06T21:35:04",
+ "updated_at": "2026-10-07T03:01:07",
  "stats": {
   "total": 3,
-  "tayang": 2,
-  "terjadwal": 1
+  "tayang": 3,
+  "terjadwal": 0
  },
  "videos": [
   {
@@ -18,9 +18,9 @@
    "item_id": "kuntilanak-kebun-pisang",
    "title": "Kuntilanak di Kebun Pisang!",
    "file": "2026-10-07-harian-kuntilanak-kebun-pisang.mp4",
-   "status": "terjadwal",
-   "youtube_url": null,
-   "uploaded_at": null
+   "status": "tayang",
+   "youtube_url": "https://youtu.be/-na48mvwUZU",
+   "uploaded_at": "2026-10-07T03:01:07"
   },
   {
    "date": "2026-10-06",
