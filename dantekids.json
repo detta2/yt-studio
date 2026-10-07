@@ -5,13 +5,23 @@
   "url": "https://www.youtube.com/channel/UCcECTOy0ONVekvgheauUGFg",
   "channel_id": "UCcECTOy0ONVekvgheauUGFg"
  },
- "updated_at": "2026-10-07T08:58:08",
+ "updated_at": "2026-10-07T22:48:05",
  "stats": {
-  "total": 3,
+  "total": 4,
   "tayang": 3,
-  "terjadwal": 0
+  "terjadwal": 1
  },
  "videos": [
+  {
+   "date": "2026-10-08",
+   "slot": "harian",
+   "item_id": "susu-pelangi",
+   "title": "Susu Pelangi Ajaib!",
+   "file": "2026-10-08-harian-susu-pelangi.mp4",
+   "status": "terjadwal",
+   "youtube_url": null,
+   "uploaded_at": null
+  },
   {
    "date": "2026-10-07",
    "slot": "harian",
