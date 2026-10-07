@@ -36,13 +36,23 @@
    }
   ]
  },
- "updated_at": "2026-10-07T13:05:05",
+ "updated_at": "2026-10-07T23:53:25",
  "stats": {
-  "total": 17,
+  "total": 18,
   "tayang": 17,
-  "terjadwal": 0
+  "terjadwal": 1
  },
  "videos": [
+  {
+   "date": "2026-10-08",
+   "slot": "pagi",
+   "story_id": "anak-gembala",
+   "title": "Anak Gembala dan Serigala | Dongeng Anak Bergambar",
+   "file": "2026-10-08-pagi-anak-gembala.mp4",
+   "status": "terjadwal",
+   "youtube_url": null,
+   "uploaded_at": null
+  },
   {
    "date": "2026-10-07",
    "slot": "shorts-malam",
