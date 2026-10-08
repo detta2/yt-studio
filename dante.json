@@ -36,11 +36,11 @@
    }
   ]
  },
- "updated_at": "2026-10-08T00:00:39",
+ "updated_at": "2026-10-08T04:59:22",
  "stats": {
-  "total": 19,
+  "total": 20,
   "tayang": 18,
-  "terjadwal": 1
+  "terjadwal": 2
  },
  "videos": [
   {
@@ -49,6 +49,16 @@
    "story_id": "kerudung-merah",
    "title": "Gadis Berkerudung Merah | Dongeng Anak Bergambar",
    "file": "2026-10-08-malam-kerudung-merah.mp4",
+   "status": "terjadwal",
+   "youtube_url": null,
+   "uploaded_at": null
+  },
+  {
+   "date": "2026-10-08",
+   "slot": "shorts-siang",
+   "story_id": "ikan-terbang",
+   "title": "Ikan Kecil yang Ingin Terbang! 🐟 #shorts",
+   "file": "2026-10-08-shorts-siang-ikan-terbang.mp4",
    "status": "terjadwal",
    "youtube_url": null,
    "uploaded_at": null
