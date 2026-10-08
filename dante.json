@@ -36,11 +36,11 @@
    }
   ]
  },
- "updated_at": "2026-10-08T23:18:41",
+ "updated_at": "2026-10-08T23:59:32",
  "stats": {
   "total": 22,
-  "tayang": 20,
-  "terjadwal": 2
+  "tayang": 21,
+  "terjadwal": 1
  },
  "videos": [
   {
@@ -59,9 +59,9 @@
    "story_id": "goldilocks",
    "title": "Goldilocks dan Tiga Beruang",
    "file": "2026-10-09-pagi-goldilocks.mp4",
-   "status": "terjadwal",
-   "youtube_url": null,
-   "uploaded_at": null
+   "status": "tayang",
+   "youtube_url": "https://youtu.be/7QhbLFyMdbc",
+   "uploaded_at": "2026-10-08T23:59:32"
   },
   {
    "date": "2026-10-08",
