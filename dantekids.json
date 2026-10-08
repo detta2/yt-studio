@@ -5,13 +5,23 @@
   "url": "https://www.youtube.com/channel/UCcECTOy0ONVekvgheauUGFg",
   "channel_id": "UCcECTOy0ONVekvgheauUGFg"
  },
- "updated_at": "2026-10-08T08:58:00",
+ "updated_at": "2026-10-08T22:50:35",
  "stats": {
-  "total": 4,
+  "total": 5,
   "tayang": 4,
-  "terjadwal": 0
+  "terjadwal": 1
  },
  "videos": [
+  {
+   "date": "2026-10-09",
+   "slot": "harian",
+   "item_id": "clownfish-petak-umpet",
+   "title": "Ikan Badut Main Petak Umpet!",
+   "file": "2026-10-09-harian-clownfish-petak-umpet.mp4",
+   "status": "terjadwal",
+   "youtube_url": null,
+   "uploaded_at": null
+  },
   {
    "date": "2026-10-08",
    "slot": "harian",
