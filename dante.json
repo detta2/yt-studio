@@ -36,11 +36,11 @@
    }
   ]
  },
- "updated_at": "2026-10-08T04:59:22",
+ "updated_at": "2026-10-08T05:07:09",
  "stats": {
   "total": 20,
-  "tayang": 18,
-  "terjadwal": 2
+  "tayang": 19,
+  "terjadwal": 1
  },
  "videos": [
   {
@@ -59,9 +59,9 @@
    "story_id": "ikan-terbang",
    "title": "Ikan Kecil yang Ingin Terbang! 🐟 #shorts",
    "file": "2026-10-08-shorts-siang-ikan-terbang.mp4",
-   "status": "terjadwal",
-   "youtube_url": null,
-   "uploaded_at": null
+   "status": "tayang",
+   "youtube_url": "https://youtube.com/shorts/e8FteHvYrO8",
+   "uploaded_at": "2026-10-08T05:07:09"
   },
   {
    "date": "2026-10-08",
