@@ -8,7 +8,7 @@
    "handle": "@juanchoxters",
    "id": "UCsW0LbOMIQis9sgamX_ZtDw",
    "laju_per_hari": 25,
-   "last_publish": "2026-10-06",
+   "last_publish": "2026-10-07",
    "name": "JuanChoxters",
    "notes": "Shorts CCTV hewan — 2 video/hari · rentang 7/28/90d = estimasi, akurat setelah otorisasi Analytics API",
    "oauth": true,
@@ -36,13 +36,22 @@
    },
    "scheduled": 0,
    "subs": 1010,
-   "videos": 53,
+   "videos": 54,
    "videos_detail": [
+    {
+     "id": "xnOoDNmVrh4",
+     "title": "KETANGKEP CCTV! Bebek Nyenggol Sapu Sampai Jatuh 😱 #shorts",
+     "published": "2026-10-07",
+     "views": 1527,
+     "comments": 0,
+     "visibility": "Publik",
+     "notices": "Tidak ada"
+    },
     {
      "id": "4ldnbrl2naY",
      "title": "KETANGKEP CCTV! Ayam Jago Kaget Sampai Nyenggol Sendal 😱 #shorts",
      "published": "2026-10-06",
-     "views": 1116,
+     "views": 1218,
      "comments": 0,
      "visibility": "Publik",
      "notices": "Tidak ada"
@@ -51,40 +60,13 @@
      "id": "JdSz9c4xd14",
      "title": "KETANGKEP CAMERA TRAP! Burung Hantu Terbang Kaget 😱 #shorts",
      "published": "2026-10-06",
-     "views": 1182,
-     "comments": 0,
-     "visibility": "Publik",
-     "notices": "Tidak ada"
-    },
-    {
-     "id": "pynXttXZmCw",
-     "title": "KETANGKEP CCTV! Burung Kaget Sampai Kaos Jatuh 😱 #shorts",
-     "published": "2026-10-05",
-     "views": 1407,
-     "comments": 0,
-     "visibility": "Publik",
-     "notices": "Tidak ada"
-    },
-    {
-     "id": "PlLmelWtHqM",
-     "title": "KETANGKEP CAMERA TRAP! Babi Hutan Kaget Kabur 😱 #shorts",
-     "published": "2026-10-05",
-     "views": 1280,
-     "comments": 0,
-     "visibility": "Publik",
-     "notices": "Tidak ada"
-    },
-    {
-     "id": "mdbw7OxUMH8",
-     "title": "KETANGKEP CCTV! Anjing Gonggong Sambil Senggol Ember 😱 #shorts",
-     "published": "2026-10-04",
-     "views": 1463,
+     "views": 1146,
      "comments": 0,
      "visibility": "Publik",
      "notices": "Tidak ada"
     }
    ],
-   "views": 36321,
+   "views": 37585,
    "watch_hours_365": 2688.5,
    "watch_hours_manual": false,
    "ypp": false
@@ -262,5 +244,5 @@
    "notes": "Lagu anak karaoke (melodi sintesis lokal) — 1 video/hari jam 16:00"
   }
  ],
- "updated_at": "07 Oct 2026 08:18 WIB"
+ "updated_at": "08 Oct 2026 08:16 WIB"
 }
