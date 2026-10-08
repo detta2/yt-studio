@@ -6,27 +6,27 @@
   "channel_id": "UCz5ALJZFiicp8zoQ72RmjzA"
  },
  "channel_stats": {
-  "date": "2026-10-06",
-  "note": "Hari ke-4 tayang. Video long-form PERTAMA dapat view: 'Malin Kundang | Dongeng Anak Bergambar' (upload malam ini) 1 view di 48 jam terakhir. Shorts 'Beni si Bebek' 2→3 views, 'Gigi si Gajah' 1→2. views_7d stagnan di 10 (window bergeser). Watch time 7d tetap 0,0 jam; subscriber tetap 0. GAP: shorts-malam (jadwal 20:00 WIB) tidak tercatat di videos.json maupun Studio — upload malam ini gagal/tidak jalan.",
+  "date": "2026-10-08",
+  "note": "Hari ke-6 tayang. Angka Studio diambil ~22:05 WIB read-only (rentang 7d: 1–7 Okt). views_7d naik 10→15, views_48h 2→4, watch time 0,0→0,1 jam, subs tetap 0. Malin Kundang 1→2 views; 'Gadis Berkerudung Merah' (malam hari ini) 1 view dalam ~3 jam pertama. Semua long-form kemarin (Keong Mas, Semut dan Belalang) 0 views. Shorts 'Ikan Kecil yang Ingin Terbang!' (siang hari ini) 0. GAP OPERASIONAL: shorts-malam (jadwal 20:00 WIB) tidak tayang — tidak ada file di outbox maupun entri di videos.json; hari ke-2 masalah slot malam ini (10-06 shorts-malam tidak tayang, 10-07 shorts-siang tidak tayang). Diskrepansi: 'Beni si Bebek' tercatat 3 views di eval 10-06, Studio hari ini menampilkan 2 views (lifetime) — kemungkinan penyesuaian view YouTube/data lag; gunakan angka Studio hari ini sebagai acuan.",
   "subs": 0,
-  "views_7d": 10,
+  "views_7d": 15,
   "views_24h": null,
-  "views_48h": 2,
-  "watch_hours": 0.0,
+  "views_48h": 4,
+  "watch_hours": 0.1,
   "videos": [
    {
     "slot": "pagi",
-    "title": "Bawang Merah Bawang Putih | Dongeng Anak Bergambar",
+    "title": "Anak Gembala dan Serigala | Dongeng Anak Bergambar",
     "views": 0
    },
    {
     "slot": "malam",
-    "title": "Malin Kundang | Dongeng Anak Bergambar",
+    "title": "Gadis Berkerudung Merah | Dongeng Anak Bergambar",
     "views": 1
    },
    {
     "slot": "shorts-siang",
-    "title": "Angin Kencang Menerbangkan Bulu Pinjaman Gaga! #shorts",
+    "title": "Ikan Kecil yang Ingin Terbang! 🐟 #shorts",
     "views": 0
    },
    {
@@ -36,7 +36,7 @@
    }
   ]
  },
- "updated_at": "2026-10-08T12:01:09",
+ "updated_at": "2026-10-08T15:05:02",
  "stats": {
   "total": 20,
   "tayang": 20,
