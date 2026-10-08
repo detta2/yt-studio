@@ -5,11 +5,11 @@
   "url": "https://www.youtube.com/channel/UCFBqJ7_lzbGktuFMdsbyXHg",
   "channel_id": "UCFBqJ7_lzbGktuFMdsbyXHg"
  },
- "updated_at": "2026-10-07T21:06:14",
+ "updated_at": "2026-10-08T02:58:27",
  "stats": {
   "total": 4,
-  "tayang": 3,
-  "terjadwal": 1
+  "tayang": 4,
+  "terjadwal": 0
  },
  "videos": [
   {
@@ -18,9 +18,9 @@
    "item_id": "pocong-rs-tua",
    "title": "Pocong di RS Tua!",
    "file": "2026-10-08-harian-pocong-rs-tua.mp4",
-   "status": "terjadwal",
-   "youtube_url": null,
-   "uploaded_at": null
+   "status": "tayang",
+   "youtube_url": "https://www.youtube.com/watch?v=0mM82SmNj_0",
+   "uploaded_at": "2026-10-08T02:58:27"
   },
   {
    "date": "2026-10-07",
