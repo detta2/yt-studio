@@ -5,13 +5,23 @@
   "url": "https://www.youtube.com/channel/UCFBqJ7_lzbGktuFMdsbyXHg",
   "channel_id": "UCFBqJ7_lzbGktuFMdsbyXHg"
  },
- "updated_at": "2026-10-08T02:58:27",
+ "updated_at": "2026-10-08T21:17:32",
  "stats": {
-  "total": 4,
+  "total": 5,
   "tayang": 4,
-  "terjadwal": 0
+  "terjadwal": 1
  },
  "videos": [
+  {
+   "date": "2026-10-09",
+   "slot": "harian",
+   "item_id": "kraken-legenda",
+   "title": "Kraken, Monster Raksasa dari Kedalaman!",
+   "file": "2026-10-09-harian-kraken-legenda.mp4",
+   "status": "terjadwal",
+   "youtube_url": null,
+   "uploaded_at": null
+  },
   {
    "date": "2026-10-08",
    "slot": "harian",
