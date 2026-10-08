@@ -36,11 +36,11 @@
    }
   ]
  },
- "updated_at": "2026-10-08T05:07:09",
+ "updated_at": "2026-10-08T12:01:09",
  "stats": {
   "total": 20,
-  "tayang": 19,
-  "terjadwal": 1
+  "tayang": 20,
+  "terjadwal": 0
  },
  "videos": [
   {
@@ -49,9 +49,9 @@
    "story_id": "kerudung-merah",
    "title": "Gadis Berkerudung Merah | Dongeng Anak Bergambar",
    "file": "2026-10-08-malam-kerudung-merah.mp4",
-   "status": "terjadwal",
-   "youtube_url": null,
-   "uploaded_at": null
+   "status": "tayang",
+   "youtube_url": "https://www.youtube.com/watch?v=0BGrAhz8p1o",
+   "uploaded_at": "2026-10-08T12:01:09"
   },
   {
    "date": "2026-10-08",
