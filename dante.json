@@ -36,13 +36,23 @@
    }
   ]
  },
- "updated_at": "2026-10-08T23:18:38",
+ "updated_at": "2026-10-08T23:18:41",
  "stats": {
-  "total": 21,
+  "total": 22,
   "tayang": 20,
-  "terjadwal": 1
+  "terjadwal": 2
  },
  "videos": [
+  {
+   "date": "2026-10-09",
+   "slot": "malam",
+   "story_id": "pinocchio",
+   "title": "Pinocchio",
+   "file": "2026-10-09-malam-pinocchio.mp4",
+   "status": "terjadwal",
+   "youtube_url": null,
+   "uploaded_at": null
+  },
   {
    "date": "2026-10-09",
    "slot": "pagi",
