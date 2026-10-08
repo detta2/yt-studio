@@ -5,11 +5,11 @@
   "url": "https://www.youtube.com/channel/UC1tw1f5yPWqMQ00ZUUQiDNQ",
   "channel_id": "UC1tw1f5yPWqMQ00ZUUQiDNQ"
  },
- "updated_at": "2026-10-07T21:53:58",
+ "updated_at": "2026-10-08T06:02:50",
  "stats": {
   "total": 4,
-  "tayang": 3,
-  "terjadwal": 1
+  "tayang": 4,
+  "terjadwal": 0
  },
  "videos": [
   {
@@ -18,9 +18,9 @@
    "item_id": "robot-jalan-sendiri",
    "title": "Robot Mainan Jalan Sendiri!",
    "file": "2026-10-08-harian-robot-jalan-sendiri.mp4",
-   "status": "terjadwal",
-   "youtube_url": null,
-   "uploaded_at": null
+   "status": "tayang",
+   "youtube_url": "https://youtu.be/nqKWQgU9QiE",
+   "uploaded_at": "2026-10-08T06:02:50"
   },
   {
    "date": "2026-10-07",
