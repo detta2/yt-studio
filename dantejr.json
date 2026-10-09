@@ -5,11 +5,11 @@
   "url": "https://www.youtube.com/channel/UC1tw1f5yPWqMQ00ZUUQiDNQ",
   "channel_id": "UC1tw1f5yPWqMQ00ZUUQiDNQ"
  },
- "updated_at": "2026-10-08T21:51:30",
+ "updated_at": "2026-10-09T06:02:42",
  "stats": {
   "total": 5,
-  "tayang": 4,
-  "terjadwal": 1
+  "tayang": 5,
+  "terjadwal": 0
  },
  "videos": [
   {
@@ -18,9 +18,9 @@
    "item_id": "jurang-tanpa-dasar",
    "title": "Menatap Jurang 11.000 Meter Tanpa Dasar",
    "file": "2026-10-09-harian-jurang-tanpa-dasar.mp4",
-   "status": "terjadwal",
-   "youtube_url": null,
-   "uploaded_at": null
+   "status": "tayang",
+   "youtube_url": "https://youtu.be/8npr1d9bcpk",
+   "uploaded_at": "2026-10-09T06:02:42"
   },
   {
    "date": "2026-10-08",
