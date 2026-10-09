@@ -36,11 +36,11 @@
    }
   ]
  },
- "updated_at": "2026-10-09T05:02:50",
+ "updated_at": "2026-10-09T05:05:38",
  "stats": {
   "total": 23,
-  "tayang": 21,
-  "terjadwal": 2
+  "tayang": 22,
+  "terjadwal": 1
  },
  "videos": [
   {
@@ -59,9 +59,9 @@
    "story_id": "kucing-bola",
    "title": "Bola Merah Kiko Jatuh ke Lubang! #shorts",
    "file": "2026-10-09-shorts-siang-kucing-bola.mp4",
-   "status": "terjadwal",
-   "youtube_url": null,
-   "uploaded_at": null
+   "status": "tayang",
+   "youtube_url": "https://www.youtube.com/shorts/JqQdsTFI4r4",
+   "uploaded_at": "2026-10-09T05:05:38"
   },
   {
    "date": "2026-10-09",
