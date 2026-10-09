@@ -36,11 +36,11 @@
    }
   ]
  },
- "updated_at": "2026-10-08T23:59:32",
+ "updated_at": "2026-10-09T05:02:50",
  "stats": {
-  "total": 22,
+  "total": 23,
   "tayang": 21,
-  "terjadwal": 1
+  "terjadwal": 2
  },
  "videos": [
   {
@@ -49,6 +49,16 @@
    "story_id": "pinocchio",
    "title": "Pinocchio",
    "file": "2026-10-09-malam-pinocchio.mp4",
+   "status": "terjadwal",
+   "youtube_url": null,
+   "uploaded_at": null
+  },
+  {
+   "date": "2026-10-09",
+   "slot": "shorts-siang",
+   "story_id": "kucing-bola",
+   "title": "Bola Merah Kiko Jatuh ke Lubang! #shorts",
+   "file": "2026-10-09-shorts-siang-kucing-bola.mp4",
    "status": "terjadwal",
    "youtube_url": null,
    "uploaded_at": null
